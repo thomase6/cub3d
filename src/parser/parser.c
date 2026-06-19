@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/19 11:04:17 by texenber         ###   ########.fr       */
+/*   Updated: 2026/06/19 12:07:42 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	validate_arg(char **av)
 	if (len < 4)
 		return (EXIT_FAILURE);
 	cub_str = ft_strrchr(av[1], '.');
+	if (cub_str == NULL)
+		return (EXIT_FAILURE);
 	if (ft_strcmp(cub_str, ".cub") != 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
