@@ -3,12 +3,11 @@
 int	main(int ac, char **av)
 {
 	t_game		data;
-	t_map		map;
-	t_player	player;
 
 	ft_bzero(&data, sizeof(data));
+	// test_file(av); GNL TEST
 	// parser
-	if (parser(data, ac, av) != EXIT_SUCCESS)
+	if (parser(&data, ac, av) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	// mlx
 	return (EXIT_SUCCESS);
@@ -24,3 +23,25 @@ int	main(int ac, char **av)
 - 4 files: parser, parse color, parse texture, parse map.
 
 */
+
+// testing for GNL
+// static int test_file(char **av)
+// {
+// 	int	fd;
+// 	char *line;
+
+// 	fd = open(av[1], O_RDONLY);
+// 	if (fd == -1)
+// 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (line == NULL)
+// 			break;
+// 		printf("[%s]\n", line);
+// 		free (line);
+// 		line = NULL;
+// 	}
+// 	close (fd);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/16 14:29:16 by texenber          #+#    #+#              #
-#    Updated: 2026/06/19 10:42:16 by texenber         ###   ########.fr        #
+#    Updated: 2026/06/22 12:21:22 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS := \
 	ft_atoi.c \
 	ft_bzero.c \
 	ft_calloc.c \
+	ft_gnl.c \
 	ft_is_space.c \
 	ft_isalnum.c \
 	ft_isalpha.c \

@@ -6,12 +6,14 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:30:15 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/19 10:39:52 by texenber         ###   ########.fr       */
+/*   Updated: 2026/06/22 12:22:01 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# define BUFFER_SIZE 6000
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -21,6 +23,7 @@ double	ft_atof(char *str);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
+char	*get_next_line(int fd);
 int		ft_is_space(char c);
 int		ft_isalnum(int i);
 int		ft_isalpha(int i);
