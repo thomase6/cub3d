@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/22 14:23:48 by texenber         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:36:01 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ typedef struct s_map
 {
 	char	*line;
 	int		fd;
-	
+	// f color
+	// c color
+	// NO texture
+	// SO texture
+	// EA texture
+	// WE texture
+	// map grid
 } t_map;
 
 typedef struct s_player
