@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/30 10:11:41 by texenber         ###   ########.fr       */
+/*   Updated: 2026/06/30 12:14:50 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ int read_file(t_game *data, char **av)
 	while((line = get_next_line(fd)))
 	{
 		if (parse_textures(data, line) != EXIT_SUCCESS)
-			return (free(line), close(fd), EXIT_FAILURE); // if this fails I need to free the already saved textures.
+			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
 		free(line);
 	}
+	get_next_line(-1);
 	return (close(fd), EXIT_SUCCESS);
 }
 
