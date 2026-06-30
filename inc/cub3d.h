@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/22 15:36:01 by texenber         ###   ########.fr       */
+/*   Updated: 2026/06/30 09:48:12 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define ARG_COUNT "Error\nWrong number of arguments\n"
 # define INVALID_ARG "Error\nInvalid argument\n"
 # define OPEN_FAILED "Error\nFailed to open file\n"
+# define TEXT_DUP "Error\nTexture Duplicate found\n"
+# define STRDUP_FAIL "Error\nft_strdup failed to malloc\n"
 
 typedef struct s_map
 {
@@ -31,10 +33,10 @@ typedef struct s_map
 	int		fd;
 	// f color
 	// c color
-	// NO texture
-	// SO texture
-	// EA texture
-	// WE texture
+	char	*north;	// NO texture
+	char	*south;	// SO texture
+	char	*east; // EA texture
+	char	*west; // WE texture
 	// map grid
 } t_map;
 
