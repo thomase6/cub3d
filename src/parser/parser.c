@@ -6,11 +6,28 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/30 12:14:50 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/03 09:53:59 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// not implemented yet
+// int validate_textures(char *arg)
+// {
+// 	int	len;
+// 	char *tex_str;
+
+// 	len = ft_strlen(arg);
+// 	if (len < 4)
+// 		return (EXIT_FAILURE);
+// 	tex_str = ft_strrchr(arg, '.');
+// 	if (tex_str == NULL)
+// 		return (EXIT_FAILURE);
+// 	if (ft_strcmp(tex_str, ".xmp") != 0)
+// 		return (EXIT_FAILURE);
+// 	return (EXIT_SUCCESS);
+// }
 
 int	texture_extraction(char **target, char *line)
 {
