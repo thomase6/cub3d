@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/06/17 13:18:33 by texenber         ###   ########.fr        #
+#    Updated: 2026/07/13 09:32:51 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ NAME		=	cub3D
 
 SRC			=	main.c			\
 				utils/error_handle.c	\
-				parser/parser.c	
+				parser/parser.c	\
+				parser/texture_parse.c	\
+				parser/color_parse.c
 SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/
 HEAD		=	./inc/ ./inc/libft/src/
