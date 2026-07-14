@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/13 11:47:37 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/14 13:24:05 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdlib.h>
 
 
 //		Error Messages		//

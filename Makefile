@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/07/13 09:32:51 by texenber         ###   ########.fr        #
+#    Updated: 2026/07/14 12:43:21 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ SRC			=	main.c			\
 				parser/color_parse.c
 SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/
-HEAD		=	./inc/ ./inc/libft/src/
+HEAD		=	./inc/ ./inc/libft/src/ ./minilibx-linux/
 CC			=	cc
 WARN		=	-Wall -Werror -Wextra
 DFLAGS		=	-g
-LIBS		=	-lmlx -lXext -lm
+LIBS		=	-Lminilibx-linux -lmlx -lXext -lm
 ifeq ($(NOWARN), 1)
 	WARN 	=
 endif
