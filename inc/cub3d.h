@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/14 13:24:05 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/16 10:06:04 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define INV_TEXT "Error\nInvalid texture\n"
 # define INV_COLOR "Error\nInvalid color\n"
 # define SPLIT_FAIL "Error\nft_split failed\n"
+# define EMPTY_COLOR "Error\nColor missing\n"
+# define INV_COLOR_AMOUNT "Error\nThe color must be displayed in the format rrr,ggg,bbb"
 
 typedef struct s_map
 {
