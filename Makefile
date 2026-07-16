@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/07/14 12:43:21 by texenber         ###   ########.fr        #
+#    Updated: 2026/07/16 13:23:07 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC			=	main.c			\
 				utils/error_handle.c	\
 				parser/parser.c	\
 				parser/texture_parse.c	\
-				parser/color_parse.c
+				parser/color_parse.c	\
+				parser/map_parse.c
 SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/
 HEAD		=	./inc/ ./inc/libft/src/ ./minilibx-linux/

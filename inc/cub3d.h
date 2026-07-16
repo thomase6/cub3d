@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/16 10:06:04 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/16 13:25:13 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int validate_textures(char *arg);
 //		color_parse.c	//
 
 int	parse_colors(t_game *data, char *line);
+int	color_extraction(int *target, bool *flag,char *line);
+int	validate_and_store_colors(char **s, int *target);
+
+//		map_parse.c		//
+
+int	parse_map(t_game *data, char *line);
 
 //		Utils folder	//
 
