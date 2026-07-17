@@ -6,12 +6,13 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/16 12:47:48 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/17 09:20:32 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// add a protection for leading zeros.
 int	validate_and_store_colors(char **s, int *target)
 {
 	int	i;
