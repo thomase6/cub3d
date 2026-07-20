@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/16 13:25:13 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/20 10:10:46 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@
 
 typedef struct s_map
 {
-	char	*line;
-	int		fd;
+	// char	*line;
+	// int		fd;
 	int		f_color; // floor color
 	int		c_color; // ceiling color
 	bool	has_floor;	// flag for duplicate check
 	bool	has_ceiling; // flag for duplicate check
+	bool	map_started;	// flag to check if the parsing of the map has started
 	char	*north;	// NO texture
 	char	*south;	// SO texture
 	char	*east; // EA texture
 	char	*west; // WE texture
-	// map grid
+	char	**map_grid; // all the map lines
+	int		map_height;
+	int		map_width;
 } t_map;
 
 typedef struct s_player

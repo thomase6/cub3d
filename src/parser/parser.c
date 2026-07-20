@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/17 08:49:34 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/20 10:03:42 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int read_file(t_game *data, char **av)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
 		if (parse_colors(data, line) != EXIT_SUCCESS)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
-		// if blank skip the line
-		// wrong input has to be taken into account and print an error 
-		// if map line, parse the map
+		// map_parse goes here.
 		free(line);
 	}
 	get_next_line(-1);
@@ -66,3 +64,8 @@ int	parser(t_game *data, int ac, char **av)
 // after reading the whole file we need to make sure that we have all the pieces of information, the map, the ceiling color, the floor color and the 4 texture colors. If we don't we should just print out an error.
 // the issue will be identifying and parsing the map itself
 // maybe if it fails the other 2 parses we can have a while loop over the lines until the end of file and grab the map grid from there.
+
+
+		// if blank skip the line
+		// wrong input has to be taken into account and print an error 
+		// if map line, parse the map

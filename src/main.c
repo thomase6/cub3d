@@ -10,6 +10,8 @@ void	free_game(t_game *data)
 		free(data->map.east);
 	if (data->map.west != NULL)
 		free(data->map.west);
+	if (data->map.map_grid != NULL)
+		free_arr(data->map.map_grid);
 }
 
 int	main(int ac, char **av)

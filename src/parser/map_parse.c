@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/17 11:52:32 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/20 13:31:25 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	is_mapchar(char c)
 int	parse_map(t_game *data, char *line)
 {
 	int	i;
+	char *t;
 
+	if ((t = ft_strrchr(line, '\n')) != 0)
+		*t = '\0';
 	i = 0;
 	if (is_mapchar(line[0]) != 0)
 	{
@@ -42,7 +45,7 @@ int	parse_map(t_game *data, char *line)
 				return (EXIT_FAILURE);
 		}
 	}
-	// return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 	// TODO:
 		// figure out how to implement the flag once the map has started to be parsed.
 		// once the flag is set if an empty line or line that is not a map line is found we should print an error because of invalid map.
@@ -59,3 +62,17 @@ int	parse_map(t_game *data, char *line)
 	// "if line is not ' ', 1, 0, N/S/E/W && the map flag is on we need to print out an error."
 		// both checks happen in the same line as they are both critical to make sure that this is always true for every line.
 		// maybe we can compare the string to a strnstr with all the characters that are whitelisted and the moment one is not detected we print the error.	
+
+
+// if line is blank:
+// 		if map_started
+			// error;
+// 		else
+			// ignore, return success
+			
+// if line is valid map line (all chars pass is_mapchar):
+// 		set map_started = true
+// 		store line in map_grid
+// 		return success
+// else
+//     return error
