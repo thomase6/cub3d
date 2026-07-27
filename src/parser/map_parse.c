@@ -6,11 +6,16 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/20 13:31:25 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/27 10:24:43 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
+
+int	store_grid_and_player(t_game *data, char *line)
+{
+	return (EXIT_SUCCESS);
+}
 
 int	is_mapchar(char c)
 {
@@ -35,6 +40,14 @@ int	parse_map(t_game *data, char *line)
 	if ((t = ft_strrchr(line, '\n')) != 0)
 		*t = '\0';
 	i = 0;
+	if (line[0] == '\0')
+	{
+		if (data->map.map_started != 0)
+			return (print_error(EMPTY_LINE_IN_MAP), EXIT_FAILURE);
+		else
+			return (EXIT_SUCCESS); 
+	}
+
 	if (is_mapchar(line[0]) != 0)
 	{
 		while (line[i])
@@ -42,8 +55,18 @@ int	parse_map(t_game *data, char *line)
 			if (is_mapchar(line[i]) != 0)
 				i++;
 			else
-				return (EXIT_FAILURE);
+				return (print_error(INVAL_MAP_CHAR), EXIT_FAILURE);
 		}
+		data->map.map_started = 1;
+		data->map.map_height += 1;
+		store_grid_and_player_direction(data, line);	
+	}
+	else
+	{
+		if (data->map.map_started != 0)
+			return (print_error(NOT_MAP_LINE), EXIT_FAILURE);
+		else
+			return (EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);
 	// TODO:

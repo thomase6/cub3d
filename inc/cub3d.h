@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/20 10:10:46 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/27 09:19:55 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define SPLIT_FAIL "Error\nft_split failed\n"
 # define EMPTY_COLOR "Error\nColor missing\n"
 # define INV_COLOR_AMOUNT "Error\nThe color must be displayed in the format rrr,ggg,bbb"
+# define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map"
+# define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line."
+# define NOT_MAP_LINE "Error\nFound an invalid line in the map grid."
 
 typedef struct s_map
 {
