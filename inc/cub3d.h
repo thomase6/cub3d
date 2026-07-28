@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/27 09:19:55 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/28 13:29:01 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	validate_and_store_colors(char **s, int *target);
 //		map_parse.c		//
 
 int	parse_map(t_game *data, char *line);
+int	is_mapchar(char c);
+int	store_grid_and_player(t_game *data, char *line);
 
 //		Utils folder	//
 

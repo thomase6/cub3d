@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/20 10:03:42 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/28 13:26:24 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int read_file(t_game *data, char **av)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
 		if (parse_colors(data, line) != EXIT_SUCCESS)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
-		// map_parse goes here.
+		if (parse_map(data, line) != EXIT_SUCCESS)
+			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
 		free(line);
 	}
 	get_next_line(-1);
