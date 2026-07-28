@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/27 10:24:43 by texenber         ###   ########.fr       */
+/*   Updated: 2026/07/28 10:59:08 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,26 @@
 
 int	store_grid_and_player(t_game *data, char *line)
 {
+	char **tmp;
+	int	i;
+
+	i = 0;
+	tmp = malloc(sizeof(char *) * (data->map.map_height + 2));
+	if (tmp == NULL)
+		return (EXIT_FAILURE);
+	if (data->map.map_grid != NULL)
+	{
+		while (data->map.map_grid[i] != NULL)
+		{
+			tmp[i] = data->map.map_grid[i];
+			if (tmp[i] == NULL)
+			{
+				return (EXIT_FAILURE);
+			}
+			i++;
+		}
+	}
+	data->map.map_height += 1;
 	return (EXIT_SUCCESS);
 }
 
@@ -58,7 +78,6 @@ int	parse_map(t_game *data, char *line)
 				return (print_error(INVAL_MAP_CHAR), EXIT_FAILURE);
 		}
 		data->map.map_started = 1;
-		data->map.map_height += 1;
 		store_grid_and_player_direction(data, line);	
 	}
 	else
