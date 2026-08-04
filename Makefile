@@ -16,6 +16,14 @@ NAME		=	cub3D
 
 SRC			=	main.c			\
 				utils/error_handle.c	\
+				init/init_game.c	\
+				init/minimap.c          \
+				init/movement_player.c  \
+				init/raycasting.c       \
+				init/make_player.c      \
+				init/game_rules.c       \
+				init/update_helper.c    \
+				init/update_player.c   	\
 				parser/parser.c	
 SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/

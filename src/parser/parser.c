@@ -15,14 +15,15 @@
 int read_file(t_game *data, char **av)
 {	
 	int	fd; //this needs to be map->fd
-	
+	(void)data; // temporary will store the map later
 	fd = open(av[1], O_RDONLY);
-	if (fd = -1)
+	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
 	// after opening the file we need to be able to go through each line one at a time.
 	// we need to parse each line to check what line type they are if they are a color line, a texture line or a map line.
 	// then check the possible characters that can be used per line type ex. map can only contain 1/0/N/W/E/S/' '
-	
+	close(fd);
+	return (EXIT_SUCCESS);
 }
 
 int	validate_arg(char **av)
@@ -48,7 +49,7 @@ int	parser(t_game *data, int ac, char **av)
 		return (print_error(ARG_COUNT), EXIT_FAILURE);
 	if (validate_arg(av) != EXIT_SUCCESS)
 		return (print_error(INVALID_ARG), EXIT_FAILURE);
-	if (read_file(&data, av) != EXIT_SUCCESS)
+	if (read_file(data, av) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
