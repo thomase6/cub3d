@@ -6,31 +6,54 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/28 13:26:24 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/04 18:17:30 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int process_line(t_game *data, char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
+	{
+		if (parse_textures(data, line) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0 || ft_strncmp(line, "F ", 2) == 0)
+	{
+		if (parse_colors(data, line) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
+	else 
+	{
+		if (parse_map(data, line) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int read_file(t_game *data, char **av)
 {	
 	int	fd;
 	char *line;
-
+	int i; //TESTING ONLY
+	
+	i = 0; //TESTING ONLY
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
 	while((line = get_next_line(fd)))
 	{
-		if (parse_textures(data, line) != EXIT_SUCCESS)
-			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
-		if (parse_colors(data, line) != EXIT_SUCCESS)
-			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
-		if (parse_map(data, line) != EXIT_SUCCESS)
+		if (process_line(data, line) != EXIT_SUCCESS)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
 		free(line);
 	}
 	get_next_line(-1);
+	while (data->map.map_grid[i] != NULL) //TESTING ONLY
+	{
+		printf("[%s]\n", data->map.map_grid[i]);
+		i++;
+	}
 	return (close(fd), EXIT_SUCCESS);
 }
 

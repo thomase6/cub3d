@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/28 13:32:41 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/04 18:16:49 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,6 @@ int	parse_map(t_game *data, char *line)
 			return (EXIT_SUCCESS);
 	}
 	i = 0;
-	while (data->map.map_grid[i] != NULL)
-	{
-		printf("[%s]\n", data->map.map_grid[i]);
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }
 
