@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/06/17 13:18:33 by texenber         ###   ########.fr        #
+#    Updated: 2026/07/16 13:23:07 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,13 +25,17 @@ SRC			=	main.c			\
 				init/update_helper.c    \
 				init/update_player.c   	\
 				parser/parser.c	
+				parser/parser.c	\
+				parser/texture_parse.c	\
+				parser/color_parse.c	\
+				parser/map_parse.c
 SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/
-HEAD		=	./inc/ ./inc/libft/src/
+HEAD		=	./inc/ ./inc/libft/src/ ./minilibx-linux/
 CC			=	cc
 WARN		=	-Wall -Werror -Wextra
 DFLAGS		=	-g
-LIBS		=	-lmlx -lXext -lm
+LIBS		=	-Lminilibx-linux -lmlx -lXext -lm
 ifeq ($(NOWARN), 1)
 	WARN 	=
 endif
