@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/06/22 14:23:48 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:58:03 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,25 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
+# include <stdlib.h>
+
 
 //		Error Messages		//
 # define ARG_COUNT "Error\nWrong number of arguments\n"
 # define INVALID_ARG "Error\nInvalid argument\n"
 # define OPEN_FAILED "Error\nFailed to open file\n"
+# define TEXT_DUP "Error\nTexture duplicate found\n"
+# define COLOR_DUP "Error\nColor duplicate found\n"
+# define STRDUP_FAIL "Error\nft_strdup failed to malloc\n"
+# define INV_TEXT "Error\nInvalid texture\n"
+# define INV_COLOR "Error\nInvalid color\n"
+# define SPLIT_FAIL "Error\nft_split failed\n"
+# define EMPTY_COLOR "Error\nColor missing\n"
+# define INV_COLOR_AMOUNT "Error\nThe color must be displayed in the format rrr,ggg,bbb"
+# define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map"
+# define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line."
+# define NOT_MAP_LINE "Error\nFound an invalid line in the map grid."
 
 // KEY_CODES                         //
 # define ESC	65307
@@ -45,21 +59,31 @@
 # define SPEED		0.01
 # define ROT_SPEED	0.01
 # define RADIUS		0.1
-/*
-typedef struct s_map
-{
-	char	*line;
-	int		fd;
-	
-} t_map;
-*/
 
 typedef struct s_map
 {
-	char	**grid;
-	int	width;
-	int	height;	
-}	t_map;
+	// char	*line;
+	// int		fd;
+	int		f_color; // floor color
+	int		c_color; // ceiling color
+	bool	has_floor;	// flag for duplicate check
+	bool	has_ceiling; // flag for duplicate check
+	bool	map_started;	// flag to check if the parsing of the map has started
+	char	*north;	// NO texture
+	char	*south;	// SO texture
+	char	*east; // EA texture
+	char	*west; // WE texture
+	char	**map_grid; // all the map lines
+	int		height;
+	int		width;
+} t_map;
+
+// typedef struct s_map
+// {
+// 	char	**grid;
+// 	int	width;
+// 	int	height;	
+// }	t_map;
 
 typedef struct s_player
 {
@@ -158,11 +182,34 @@ typedef struct s_minimap
  }   t_minimap;
 //		Parsing Functions		//
 int	parser(t_game *data, int ac, char **av);
+int read_file(t_game *data, char **av);
+int	validate_arg(char **av);
 
+//		texture_parse.c	//
+
+int	parse_textures(t_game *data, char *line);
+int	texture_extraction(char **target, char *line);
+int validate_textures(char *arg);
+
+//		color_parse.c	//
+
+int	parse_colors(t_game *data, char *line);
+int	color_extraction(int *target, bool *flag,char *line);
+int	validate_and_store_colors(char **s, int *target);
+
+//		map_parse.c		//
+
+int	parse_map(t_game *data, char *line);
+int	is_mapchar(char c);
+int	store_grid_and_player(t_game *data, char *line);
 
 //		Utils					//
-void	print_error(char *msg);
 
+//		error_handling.c		//
+void	print_error(char *msg);
+void	free_arr(char **array);
+
+//		init					//
 // Initialization                                  //
 int	init_game(t_game *game);
 int	close_game(t_game *game);
