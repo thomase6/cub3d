@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/28 13:29:01 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:58:03 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define SPEED		0.01
 # define ROT_SPEED	0.01
 # define RADIUS		0.1
-/*
+
 typedef struct s_map
 {
 	// char	*line;
@@ -74,17 +74,16 @@ typedef struct s_map
 	char	*east; // EA texture
 	char	*west; // WE texture
 	char	**map_grid; // all the map lines
-	int		map_height;
-	int		map_width;
+	int		height;
+	int		width;
 } t_map;
-*/
 
-typedef struct s_map
-{
-	char	**grid;
-	int	width;
-	int	height;	
-}	t_map;
+// typedef struct s_map
+// {
+// 	char	**grid;
+// 	int	width;
+// 	int	height;	
+// }	t_map;
 
 typedef struct s_player
 {
@@ -204,14 +203,13 @@ int	parse_map(t_game *data, char *line);
 int	is_mapchar(char c);
 int	store_grid_and_player(t_game *data, char *line);
 
-//		Utils folder	//
-
 //		Utils					//
-//		error_handle.c	//
 
+//		error_handling.c		//
 void	print_error(char *msg);
 void	free_arr(char **array);
 
+//		init					//
 // Initialization                                  //
 int	init_game(t_game *game);
 int	close_game(t_game *game);

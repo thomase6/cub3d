@@ -20,19 +20,14 @@ int	main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	ft_bzero(&data, sizeof(data));
-	// test_file(av); GNL TEST
-	// parser
-	//if (parser(&data, ac, av) != EXIT_SUCCESS)
-	//	return (EXIT_FAILURE);
+
+	if (parser(&data, ac, av) != EXIT_SUCCESS)
+		return (free_game(&data), EXIT_FAILURE);
 	// mlx
 	if (init_game(&data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	mlx_loop(data.mlx);
 	//cleanup_game_mlx(&data); not shure here!!
-	//return (EXIT_SUCCESS);
-	if (parser(&data, ac, av) != EXIT_SUCCESS)
-		return (free_game(&data), EXIT_FAILURE);
-	// mlx
 	return (free_game(&data), EXIT_SUCCESS);
 }
 

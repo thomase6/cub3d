@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stbagdah <stbagdah@student.42vienna.c      +#+  +:+       +#+        */
+/*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 13:19:59 by stbagdah          #+#    #+#             */
-/*   Updated: 2026/08/03 14:37:13 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:51:34 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	draw_minimap(t_game *game)
 
 	values.size = 8;
 	values.y = 0;
-	while (game->map.grid[values.y])
+	while (game->map.map_grid[values.y])
 	{
 		values.x = 0;
-		while (game->map.grid[values.y][values.x])
+		while (game->map.map_grid[values.y][values.x])
 		{
-			if (game->map.grid[values.y][values.x] == '1')
+			if (game->map.map_grid[values.y][values.x] == '1')
 			{
 				values.tile_x = 0;
 				while (values.tile_x < values.size)

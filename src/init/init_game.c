@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stbagdah <stbagdah@student.42vienna.c      +#+  +:+       +#+        */
+/*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:32:22 by stbagdah          #+#    #+#             */
-/*   Updated: 2026/07/27 10:33:26 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:50:47 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int init_game(t_game *game)
         &game->bpp,   // addr -> pointer to pixel in memory bpp-> bits per pixel usualy 32
         &game->line_len,  // how many bytes per row given from mlx plus minus padding
         &game->endian);   // byte order -> little endian here back to fron Ox11223344 -> 44332211
-    game->map.grid = map; // assigning static map in game struct game->map->grid->"11100101010111..."
+    // game->map.map_grid = map; // assigning static map in game struct game->map->grid->"11100101010111..."
     init_player(game); // now player exist inside game at pos x,y
     mlx_hook(game->win, 17, 0, close_game, game); // ESC close game
     mlx_hook(game->win, 2, 1L << 0, key_press, game); // when key is pressed->key_press()

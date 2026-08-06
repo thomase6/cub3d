@@ -6,20 +6,19 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/04 18:16:49 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:55:04 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-// STILL NOT WORKING BECAUSE IT'S IDENTIFYING AN SO LINE AS A MAP LINE 
 int	store_grid_and_player(t_game *data, char *line)
 {
 	char **tmp;
 	int	i;
 
 	i = 0;
-	tmp = malloc(sizeof(char *) * (data->map.map_height + 2));
+	tmp = malloc(sizeof(char *) * (data->map.height + 2));
 	if (tmp == NULL)
 		return (EXIT_FAILURE);
 	if (data->map.map_grid != NULL)
@@ -40,7 +39,7 @@ int	store_grid_and_player(t_game *data, char *line)
 	tmp[i] = NULL;
 	free(data->map.map_grid);
 	data->map.map_grid = tmp;
-	data->map.map_height += 1;
+	data->map.height += 1;
 	return (EXIT_SUCCESS);
 }
 
