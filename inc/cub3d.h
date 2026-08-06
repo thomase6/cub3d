@@ -54,6 +54,11 @@
 # define WIN_WIDTH      800
 # define WIN_HEIGHT     600
 
+# define MINI_MAP_RAYS	36	 
+# define MINI_CENTER_X	125
+# define MINI_CENTER_Y	50
+# define MINI_TILE	8
+
 # define TILE_SIZE      32
 # define PLAYER_SIZE    5
 # define SPEED		0.01

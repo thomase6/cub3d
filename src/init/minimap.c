@@ -21,7 +21,7 @@ static void	helper_minimap(t_game *game, t_minimap *values) // old version
 		values->tile_y++;
 	}
 }
-
+/*
 static void	draw_tile(t_game *game, int minimap_x, int minimap_y)
 {
 	int	x;
@@ -39,7 +39,9 @@ static void	draw_tile(t_game *game, int minimap_x, int minimap_y)
 		x++;
 	} 
 }
+*/
 
+/*
 void	draw_minimap(t_game *game) // add to .h !!
 {
 	int	start_x;
@@ -68,6 +70,7 @@ void	draw_minimap(t_game *game) // add to .h !!
 		y++;
 	}
 }
+*/
 /*
 visible_tiles_x = minimap_width / tile_size
 half_visible_x = visible_tiles_x / 2
@@ -101,7 +104,7 @@ void	draw_minimap(t_game *game) // old version
 		values.y++;
 	}
 }
-
+/*
 void	draw_minimap_tile(t_game *game, int map_x, int map_y) // uses t_minimap struct maybe?
 {
 	float	wall_x;
@@ -115,6 +118,7 @@ void	draw_minimap_tile(t_game *game, int map_x, int map_y) // uses t_minimap str
 	minimap_y = (int)wall_y;
 	draw_tile(game, minimap_x, minimap_y);
 }
+*/
 
 void	draw_minimap_player(t_game *game)
 {
