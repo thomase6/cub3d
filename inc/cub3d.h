@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/06 14:58:03 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/13 19:22:32 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 # define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map"
 # define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line."
 # define NOT_MAP_LINE "Error\nFound an invalid line in the map grid."
+# define MISS_CONFIG "Error\nMissing argument in the map file."
+# define MAP_FAIL "Error\nFailed to validate map."
+# define NO_PLAYER "Error\nNo player found."
+# define TOO_MANY_PLAYERS "Error\nToo many players found."
 
 // KEY_CODES                         //
 # define ESC	65307
@@ -92,6 +96,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	char	p_dir;	// Parsing stores the direction the player is facing.
 	float	x;
 	float	y;
 	float	dir_x;
@@ -185,6 +190,7 @@ typedef struct s_minimap
 	int	tile_x;
 	int	tile_y;
  }   t_minimap;
+ 
 //		Parsing Functions		//
 int	parser(t_game *data, int ac, char **av);
 int read_file(t_game *data, char **av);
