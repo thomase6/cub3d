@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/13 21:33:56 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/17 14:43:42 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int validate_all(t_game *data) //WIP
 		data->map.east == NULL || data->map.west == NULL || 
 		data->map.has_ceiling == false || data->map.has_floor == false)
 		return (print_error(MISS_CONFIG), EXIT_FAILURE);
-	if (validate_map(data) != EXIT_FAILURE)
+	if (validate_map(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 int process_line(t_game *data, char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || 
+		ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
 	{
 		if (parse_textures(data, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
