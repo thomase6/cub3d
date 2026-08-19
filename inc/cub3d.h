@@ -51,12 +51,12 @@
 # define KEY_UP		65362	// UP	
 # define KEY_DOWN	65364   // DOWN  both not needed !!
 
-# define WIN_WIDTH      800
-# define WIN_HEIGHT     600
+# define WIN_WIDTH      1024
+# define WIN_HEIGHT     512
 
 # define MINI_MAP_RAYS	36	 
-# define MINI_CENTER_X	125
-# define MINI_CENTER_Y	50
+# define MINI_CENTER_X	128
+# define MINI_CENTER_Y	64
 # define MINI_TILE	8
 
 # define TILE_SIZE      32
@@ -234,8 +234,10 @@ void	draw_direction(t_game *game);
 void	draw_ray(t_game *game);
 void	ray_caster(t_game *game);
 void	draw_minimap(t_game *game);
+void	draw_minimap_floor(t_game *game, int map_x, int map_y);
 void	draw_minimap_player(t_game *game);
 void	draw_minimap_background(t_game *game);
+void	draw_minimap_tile(t_game *game, int map_x, int map_y);
 void	draw_minimap_rays(t_game *game);
 void	ray_casting(t_game *game);
 void	init_player(t_game *game);

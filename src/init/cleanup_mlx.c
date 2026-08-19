@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-void	cleanup_game_mlx(t_game *game) // data or game ?
+void	cleanup_game_mlx(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	free_map(game);
-	//free_textures(game);
+	free_textures(game);
 	exit(0);
 }

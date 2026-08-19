@@ -40,6 +40,8 @@ int	store_grid_and_player(t_game *data, char *line)
 	free(data->map.map_grid);
 	data->map.map_grid = tmp;
 	data->map.height += 1;
+	if (line != NULL && (int)ft_strlen(line) > data->map.width)
+	data->map.width = ft_strlen(line);
 	return (EXIT_SUCCESS);
 }
 
