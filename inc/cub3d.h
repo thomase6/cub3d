@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/13 19:22:32 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:17:28 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define MAP_FAIL "Error\nFailed to validate map."
 # define NO_PLAYER "Error\nNo player found."
 # define TOO_MANY_PLAYERS "Error\nToo many players found."
+# define MAP_NOT_ENCLOSED "Error\nMap is not enclosed."
 
 // KEY_CODES                         //
 # define ESC	65307
@@ -69,10 +70,14 @@
 # define ROT_SPEED	0.01
 # define RADIUS		0.1
 
+typedef struct s_point
+{
+	int x;
+	int y;
+} t_point;
+
 typedef struct s_map
 {
-	// char	*line;
-	// int		fd;
 	int		f_color; // floor color
 	int		c_color; // ceiling color
 	bool	has_floor;	// flag for duplicate check
@@ -86,13 +91,6 @@ typedef struct s_map
 	int		height;
 	int		width;
 } t_map;
-
-// typedef struct s_map
-// {
-// 	char	**grid;
-// 	int	width;
-// 	int	height;	
-// }	t_map;
 
 typedef struct s_player
 {
@@ -195,6 +193,9 @@ typedef struct s_minimap
 int	parser(t_game *data, int ac, char **av);
 int read_file(t_game *data, char **av);
 int	validate_arg(char **av);
+int process_line(t_game *data, char *line);
+int validate_all(t_game *data);
+int	validate_map(t_game *data);
 
 //		texture_parse.c	//
 
@@ -219,6 +220,13 @@ int	store_grid_and_player(t_game *data, char *line);
 //		error_handling.c		//
 void	print_error(char *msg);
 void	free_arr(char **array);
+void	free_visited(int **visited, int height);
+
+//		floodfill.c		//
+int	ft_flood_fill(t_game *data);
+int	**create_visited(t_game *data);
+int	fix_map(t_game *data);
+
 
 //		init					//
 // Initialization                                  //

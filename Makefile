@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/08/06 14:47:58 by texenber         ###   ########.fr        #
+#    Updated: 2026/08/30 14:49:49 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME		=	cub3D
 
 SRC			=	main.c			\
 				utils/error_handle.c	\
+				utils/flood_fill.c	\
 				init/init_game.c	\
 				init/minimap.c          \
 				init/movement_player.c  \
@@ -34,7 +35,7 @@ HEAD		=	./inc/ ./inc/libft/src/ ./minilibx-linux/
 CC			=	cc
 WARN		=	-Wall -Werror -Wextra
 DFLAGS		=	-g
-LIBS		=	-Lminilibx-linux -lmlx -lXext -lm
+LIBS		=	-Lminilibx-linux -lmlx -lXext -lm -lX11
 ifeq ($(NOWARN), 1)
 	WARN 	=
 endif

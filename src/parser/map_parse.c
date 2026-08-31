@@ -6,11 +6,11 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/06 14:55:04 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/26 20:18:05 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 int	store_grid_and_player(t_game *data, char *line)
 {
@@ -41,7 +41,7 @@ int	store_grid_and_player(t_game *data, char *line)
 	data->map.map_grid = tmp;
 	data->map.height += 1;
 	if (line != NULL && (int)ft_strlen(line) > data->map.width)
-	data->map.width = ft_strlen(line);
+		data->map.width = ft_strlen(line);
 	return (EXIT_SUCCESS);
 }
 
