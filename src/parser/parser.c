@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/17 14:43:42 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:17:57 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	validate_map(t_game *data) //WIP
 				data->map.map_grid[y][x] == 'W')
 			{
 				p_count += 1;
-				data->player.x = x + 0.5;
-				data->player.y = y + 0.5;
+				data->player.x = x; // REMINDER: ADD 0.5 TO X AND Y AFTER VALIDATION OF EVERYTHING IS DONE
+				data->player.y = y;
 				data->player.p_dir = data->map.map_grid[y][x];
 			}
 			x++;
@@ -45,6 +45,12 @@ int	validate_map(t_game *data) //WIP
 		return (print_error(NO_PLAYER), EXIT_FAILURE);
 	if (p_count > 1)
 		return (print_error(TOO_MANY_PLAYERS), EXIT_FAILURE);
+	if (fix_map(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (ft_flood_fill(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	data->player.x = x + 0.5;
+	data->player.y = y + 0.5;
 	return (EXIT_SUCCESS);
 }
 

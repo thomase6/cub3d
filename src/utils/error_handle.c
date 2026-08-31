@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 12:44:41 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/13 11:35:46 by texenber         ###   ########.fr       */
+/*   Updated: 2026/08/24 20:48:02 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ void	free_arr(char **array)
 		i++;
 	}
 	free(array);
+}
+
+void	free_visited(int **visited, int height)
+{
+	int i;
+
+	i = 0;
+	while (i < height)
+	{
+		if(visited[i] != NULL)
+			free(visited[i]);
+		i++;
+	}
+	free(visited);
 }
 
 void	print_error(char *msg)
