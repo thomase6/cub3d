@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 08:50:33 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/13 09:18:27 by texenber         ###   ########.fr       */
+/*   Updated: 2026/09/07 18:19:58 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ int validate_textures(char *arg)
 int	texture_extraction(char **target, char *line)
 {
 	int		i;
-	char	*s;
 	
 	i = 2;
 	if (*target != NULL)
 		return(print_error(TEXT_DUP), EXIT_FAILURE);
 	while (ft_is_space(line[i]) != 0)
 		i++;
-	if ((s = ft_strrchr(line, '\n')) != 0)
-		*s = '\0';
 	*target = ft_strdup(line + i);
 	if (*target == NULL)
 		return (print_error(STRDUP_FAIL), EXIT_FAILURE);

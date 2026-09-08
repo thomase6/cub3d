@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 20:16:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/31 16:21:05 by texenber         ###   ########.fr       */
+/*   Updated: 2026/09/08 15:58:03 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	ft_flood_fill(t_game *data)
 	top++;
 	list[top].x = data->player.x;
 	list[top].y = data->player.y;
+	visited[(int)data->player.y][(int)data->player.x] = 1;
 	while (top != -1)
 	{
 		current = list[top];
@@ -83,28 +84,38 @@ int	ft_flood_fill(t_game *data)
 		if (current.y < 0 || current.y >= data->map.height || current.x < 0)
 			return (free_visited(visited, data->map.height), 
 					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (current.x >= (int)ft_strlen(data->map.map_grid[current.y]))
+		if (current.x >= data->map.width)
 			return (free_visited(visited, data->map.height),
 					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (data->map.map_grid[current.y][current.x] == ' ' 
-			|| data->map.map_grid[current.y][current.x] == '\t')
+		if (data->map.map_grid[current.y][current.x] == ' ')
 			return (free_visited(visited, data->map.height),
 					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (visited[current.y][current.x] == 1)
+		if (data->map.map_grid[current.y][current.x] == '1')
 			continue;
-		else
-			visited[current.y][current.x] = 1;
-		if (data->map.map_grid[current.y][current.x] != '1')
+		if ((current.y - 1 >= 0) && visited[current.y - 1][current.x] != 1)
 		{
+			visited[current.y - 1][current.x] = 1;
 			top++;
 			list[top].x = current.x;
 			list[top].y = current.y - 1;
+		}
+		if ((current.y + 1 < data->map.height) && visited[current.y + 1][current.x] != 1)
+		{
+			visited[current.y + 1][current.x] = 1;
 			top++;
 			list[top].x = current.x;
 			list[top].y = current.y + 1;
+		}
+		if ((current.x - 1 >= 0) && visited[current.y][current.x - 1] != 1)
+		{
+			visited[current.y][current.x - 1] = 1;
 			top++;
 			list[top].x = current.x - 1;
 			list[top].y = current.y;
+		}
+		if ((current.x + 1 < data->map.width) && visited[current.y][current.x + 1] != 1)
+		{
+			visited[current.y][current.x + 1] = 1;
 			top++;
 			list[top].x = current.x + 1;
 			list[top].y = current.y;

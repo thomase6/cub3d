@@ -6,13 +6,13 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/31 16:17:57 by texenber         ###   ########.fr       */
+/*   Updated: 2026/09/08 15:57:47 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validate_map(t_game *data) //WIP
+int	validate_map(t_game *data)
 {
 	int	x;
 	int	y;
@@ -49,12 +49,10 @@ int	validate_map(t_game *data) //WIP
 		return (EXIT_FAILURE);
 	if (ft_flood_fill(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	data->player.x = x + 0.5;
-	data->player.y = y + 0.5;
 	return (EXIT_SUCCESS);
 }
 
-int validate_all(t_game *data) //WIP
+int validate_all(t_game *data)
 {
 	if (data->map.north == NULL || data->map.south == NULL || 
 		data->map.east == NULL || data->map.west == NULL || 
@@ -67,6 +65,17 @@ int validate_all(t_game *data) //WIP
 
 int process_line(t_game *data, char *line)
 {
+	char	*s;
+
+	if ((s = ft_strrchr(line, '\n')) != 0)
+		*s = '\0';
+	if (line[0] == '\0')
+	{
+		if (data->map.map_started != 0)
+			return (print_error(EMPTY_LINE_IN_MAP), EXIT_FAILURE);
+		else
+			return (EXIT_SUCCESS); 
+	}
 	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || 
 		ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
 	{
@@ -90,9 +99,7 @@ int read_file(t_game *data, char **av)
 {	
 	int	fd;
 	char *line;
-	int i; //TESTING ONLY
-	
-	i = 0; //TESTING ONLY
+
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
@@ -103,11 +110,6 @@ int read_file(t_game *data, char **av)
 		free(line);
 	}
 	get_next_line(-1);
-	while (data->map.map_grid[i] != NULL) //TESTING ONLY
-	{
-		printf("[%s]\n", data->map.map_grid[i]);
-		i++;
-	}
 	return (close(fd), EXIT_SUCCESS);
 }
 
@@ -129,23 +131,21 @@ int	validate_arg(char **av)
 
 int	parser(t_game *data, int ac, char **av)
 {
-
+	int i; //TESTING ONLY
+	
+	i = 0; //TESTING ONLY
 	if (ac != 2)
 		return (print_error(ARG_COUNT), EXIT_FAILURE);
 	if (validate_arg(av) != EXIT_SUCCESS)
 		return (print_error(INVALID_ARG), EXIT_FAILURE);
 	if (read_file(data, av) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (validate_all(data) != EXIT_SUCCESS) // WIP
+	if (validate_all(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
+	while (data->map.map_grid[i] != NULL) //TESTING ONLY
+	{
+		printf("[%s]\n", data->map.map_grid[i]);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
-
-// after reading the whole file we need to make sure that we have all the pieces of information, the map, the ceiling color, the floor color and the 4 texture colors. If we don't we should just print out an error.
-// the issue will be identifying and parsing the map itself
-// maybe if it fails the other 2 parses we can have a while loop over the lines until the end of file and grab the map grid from there.
-
-
-		// if blank skip the line
-		// wrong input has to be taken into account and print an error 
-		// if map line, parse the map
