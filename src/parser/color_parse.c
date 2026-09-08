@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/07/17 09:20:32 by texenber         ###   ########.fr       */
+/*   Updated: 2026/09/08 15:57:07 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	validate_and_store_colors(char **s, int *target)
 int	color_extraction(int *target, bool *flag,char *line)
 {
 	int		i;
-	char 	*t;
 	char	**s;
 	
 	i = 1;
@@ -57,8 +56,6 @@ int	color_extraction(int *target, bool *flag,char *line)
 		i++;
 	if (line[i] == '\0')
 		return (print_error(EMPTY_COLOR), EXIT_FAILURE);
-	if ((t = ft_strrchr(line, '\n')) != 0)
-		*t = '\0';
 	s = ft_split(line + i, ',');
 	if (s == NULL)
 		return (print_error(SPLIT_FAIL), EXIT_FAILURE);
@@ -90,11 +87,3 @@ int	parse_colors(t_game *data, char *line)
 	}
 	return (EXIT_SUCCESS);
 }
-
-//removed while I test a different version 
-// if (i == 0)
-// 	rgb[0] = tmp;
-// if (i == 1)
-// 	rgb[1] = tmp;
-// if (i == 2)
-// 	rgb[2] = tmp;
