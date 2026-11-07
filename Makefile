@@ -25,6 +25,7 @@ SRC			=	main.c			\
 				init/game_rules.c       \
 				init/update_helper.c    \
 				init/update_player.c   	\
+				init/textures.c         \
 				parser/parser.c	\
 				parser/texture_parse.c	\
 				parser/color_parse.c	\

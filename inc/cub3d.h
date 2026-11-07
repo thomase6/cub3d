@@ -70,6 +70,22 @@
 # define ROT_SPEED	0.01
 # define RADIUS		0.1
 
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int	bpp;
+	int	line_len;
+	int	endian;
+	int	width;
+	int	height;
+} t_img;
+
 typedef struct s_point
 {
 	int x;
@@ -176,6 +192,7 @@ typedef struct s_game
 	int	bpp;      // from mlx
 	int	line_len; // from mlx
 	int	endian;   // from mlx
+	t_img	tex[4];
 	t_map		map;
 	t_player	player;
 } t_game;
@@ -255,6 +272,11 @@ void	draw_minimap_tile(t_game *game, int map_x, int map_y);
 void	draw_minimap_rays(t_game *game);
 void	ray_casting(t_game *game);
 void	init_player(t_game *game);
+int	load_textures(t_game *game);
+void	draw_floor_ceiling(t_game *game);
+void	free_textures(t_game *game);
+void	free_game(t_game *game);
+int	get_tex_color(t_img *tex, int x, int y);
 void	cleanup_game_mlx(t_game *data); // not shure which to use game or data!
 //void    render(t_game *game);
 //void    move_player(t_game *game);

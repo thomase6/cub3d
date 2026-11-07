@@ -32,6 +32,7 @@ void	collision_check(t_game *game, t_next_position *movement, float radius)
 
 void	render_game(t_game *game)
 {
+	draw_floor_ceiling(game);
 	ray_casting(game);
 	draw_minimap_background(game);
 	draw_minimap(game);
@@ -42,4 +43,25 @@ void	render_game(t_game *game)
 void	display_frame(t_game *game)
 {
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+}
+
+void	draw_floor_ceiling(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			if (y < WIN_HEIGHT / 2)
+				put_pixel(game, x, y, game->map.c_color);
+			else
+				put_pixel(game, x, y, game->map.f_color);
+			x++;
+		}
+		y++;
+	}
 }

@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 		return (free_game(&data), EXIT_FAILURE);
 	// mlx
 	if (init_game(&data) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		return (free_game(&data), EXIT_FAILURE);
 	mlx_loop(data.mlx);
 	//cleanup_game_mlx(&data); not shure here!!
 	return (free_game(&data), EXIT_SUCCESS);

@@ -80,6 +80,48 @@ static void	calculate_wall(t_raycasting *ray)
 		ray->drawEnd = WIN_HEIGHT -1;
 }
 
+static t_img	*pick_texture(t_game *game, t_raycasting *ray)
+{
+	if (ray->side == 0)
+	{
+		if (ray->rayDirX > 0)
+			return (&game->tex[EA]);
+		return (&game->tex[WE]);
+	}
+	if (ray->rayDirY > 0)
+		return (&game->tex[SO]);
+	return (&game->tex[NO]);
+}
+
+static void	draw_wall(t_game *game, t_raycasting *ray, int x)
+{
+	t_img	*tex;
+	double	wall_x;
+	double	tex_pos;
+	int		tex_x;
+	int		y;
+
+	tex = pick_texture(game, ray);
+	if (ray->side == 0)
+		wall_x = game->player.y + ray->perpWallDist * ray->rayDirY;
+	else
+		wall_x = game->player.x + ray->perpWallDist * ray->rayDirX;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * tex->width);
+	if ((ray->side == 0 && ray->rayDirX < 0)
+		|| (ray->side == 1 && ray->rayDirY > 0))
+		tex_x = tex->width - tex_x - 1;
+	tex_pos = (ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2)
+		* ((double)tex->height / ray->lineHeight);
+	y = ray->drawStart;
+	while (y < ray->drawEnd)
+	{
+		put_pixel(game, x, y, get_tex_color(tex, tex_x, (int)tex_pos));
+		tex_pos += (double)tex->height / ray->lineHeight;
+		y++;
+	}
+}
+/*
 static void	draw_wall(t_game *game, t_raycasting *ray, int x)
 {
 	int	y;
@@ -91,6 +133,7 @@ static void	draw_wall(t_game *game, t_raycasting *ray, int x)
 		y++;
 	}
 }
+*/
 
 void	ray_casting(t_game *game)
 {

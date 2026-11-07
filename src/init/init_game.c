@@ -55,6 +55,13 @@ int	update(t_game *game)
 int	init_game(t_game *game)
 {
 	game->mlx = mlx_init();// start MLX connection to the graphics system
+	if (load_textures(game) != EXIT_SUCCESS)
+	{
+		free_textures(game);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		return (EXIT_FAILURE);
+	}	
 	if (!game->mlx)// a tool that lets you talk to the screen	
 		return (EXIT_FAILURE);// program -> MLX -> OS -> screen
 	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D"); // creating window on the screen
