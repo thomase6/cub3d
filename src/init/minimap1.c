@@ -14,7 +14,7 @@
 
 void	draw_minimap_player(t_game *game)
 {
-	put_pixel(game, MINI_CENTER_X, MINI_CENTER_Y, 0x00FFFFFF);
+	put_pixel(game, MINI_CENTER_X, MINI_CENTER_Y, 0x00FF0000);
 }
 
 void	draw_minimap_floor(t_game *game, int map_x, int map_y)
