@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/09 11:40:28 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/12 14:51:39 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@
 # define INV_COLOR "Error\nInvalid color\n"
 # define SPLIT_FAIL "Error\nft_split failed\n"
 # define EMPTY_COLOR "Error\nColor missing\n"
-# define INV_COLOR_AMOUNT "Error\n The color must be displayed in the format rrr,ggg,bbb"
-# define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map"
-# define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line."
-# define NOT_MAP_LINE "Error\nFound an invalid line in the map grid."
-# define MISS_CONFIG "Error\nMissing argument in the map file."
-# define MAP_FAIL "Error\nFailed to validate map."
-# define NO_PLAYER "Error\nNo player found."
-# define TOO_MANY_PLAYERS "Error\nToo many players found."
-# define MAP_NOT_ENCLOSED "Error\nMap is not enclosed."
+# define INV_COLOR_AMOUNT "Error\n The color must be in the format rrr,ggg,bbb.\n"
+# define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map.\n"
+# define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line.\n"
+# define NOT_MAP_LINE "Error\nFound an invalid line in the map grid.\n"
+# define MISS_CONFIG "Error\nMissing argument in the map file.\n"
+# define MAP_FAIL "Error\nFailed to validate map.\n"
+# define NO_PLAYER "Error\nNo player found.\n"
+# define TOO_MANY_PLAYERS "Error\nToo many players found.\n"
+# define MAP_NOT_ENCLOSED "Error\nMap is not enclosed.\n"
+# define LINE_AFTER_MAP "Error\nLine after the map.\n"
 
 // KEY_CODES                         //
 # define ESC	65307

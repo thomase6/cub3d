@@ -6,13 +6,12 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/09 11:09:33 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:52:36 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// add a protection for leading zeros.
 int	validate_and_store_colors(char **s, int *target)
 {
 	int	i;
@@ -73,19 +72,19 @@ int	color_extraction(int *target, bool *flag, char *line)
 
 int	parse_colors(t_game *data, char *line)
 {
+	if (data->map.map_started != 0)
+		return (print_error(LINE_AFTER_MAP), EXIT_FAILURE);
 	if ((ft_strncmp(line, "C", 1) == 0) && (ft_is_space(line[1]) != 0))
 	{
 		if (color_extraction(&data->map.c_color,
 				&data->map.has_ceiling, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		printf("%d\n", data->map.c_color); //TESTING ONLY
 	}
 	if ((ft_strncmp(line, "F", 1) == 0) && (ft_is_space(line[1]) != 0))
 	{
 		if (color_extraction(&data->map.f_color,
 				&data->map.has_floor, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		printf("%d\n", data->map.f_color); //TESTING ONLY
 	}
 	return (EXIT_SUCCESS);
 }

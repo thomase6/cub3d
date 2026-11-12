@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/10 11:39:26 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/12 15:33:32 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	validate_map(t_game *data)
 				|| data->map.map_grid[y][x] == 'W')
 			{
 				p_count += 1;
-				data->player.x = x; // REMINDER: ADD 0.5 TO X AND Y AFTER VALIDATION OF EVERYTHING IS DONE
+				data->player.x = x;
 				data->player.y = y;
 				data->player.p_dir = data->map.map_grid[y][x];
 			}
@@ -67,7 +67,7 @@ int	process_line(t_game *data, char *line)
 {
 	char	*s;
 
-	if ((s = ft_strrchr(line, '\n')) != 0) // norminette complains assingment in controll structure
+	if ((s = ft_strrchr(line, '\n')) != 0)
 		*s = '\0';
 	if (line[0] == '\0')
 	{
@@ -103,7 +103,7 @@ int	read_file(t_game *data, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
-	while ((line = get_next_line(fd))) // assignment in control structur
+	while ((line = get_next_line(fd)))
 	{
 		if (process_line(data, line) != EXIT_SUCCESS)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
@@ -131,9 +131,6 @@ int	validate_arg(char **av)
 
 int	parser(t_game *data, int ac, char **av)
 {
-	int	i; //TESTING ONLY
-
-	i = 0; //TESTING ONLY
 	if (ac != 2)
 		return (print_error(ARG_COUNT), EXIT_FAILURE);
 	if (validate_arg(av) != EXIT_SUCCESS)
@@ -142,10 +139,5 @@ int	parser(t_game *data, int ac, char **av)
 		return (EXIT_FAILURE);
 	if (validate_all(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	while (data->map.map_grid[i] != NULL) //TESTING ONLY
-	{
-		printf("[%s]\n", data->map.map_grid[i]);
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }

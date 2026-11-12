@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 20:16:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/10 11:40:47 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/12 18:01:18 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,39 +81,37 @@ int	ft_flood_fill(t_game *data)
 	{
 		current = list[top];
 		top--;
-		if (current.y < 0 || current.y >= data->map.height || current.x < 0)
-			return (free_visited(visited, data->map.height),
-				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (current.x >= data->map.width)
-			return (free_visited(visited, data->map.height),
-				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
 		if (data->map.map_grid[current.y][current.x] == ' ')
 			return (free_visited(visited, data->map.height),
 				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
 		if (data->map.map_grid[current.y][current.x] == '1')
 			continue ;
-		if ((current.y - 1 >= 0) && visited[current.y - 1][current.x] != 1)
+		if (current.x == 0 || current.x == data->map.width - 1 
+			|| current.y == 0 || current.y == data->map.height - 1)
+			return (free_visited(visited, data->map.height),
+				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
+		if (visited[current.y - 1][current.x] != 1)
 		{
 			visited[current.y - 1][current.x] = 1;
 			top++;
 			list[top].x = current.x;
 			list[top].y = current.y - 1;
 		}
-		if ((current.y + 1 < data->map.height) && visited[current.y + 1][current.x] != 1)
+		if (visited[current.y + 1][current.x] != 1)
 		{
 			visited[current.y + 1][current.x] = 1;
 			top++;
 			list[top].x = current.x;
 			list[top].y = current.y + 1;
 		}
-		if ((current.x - 1 >= 0) && visited[current.y][current.x - 1] != 1)
+		if (visited[current.y][current.x - 1] != 1)
 		{
 			visited[current.y][current.x - 1] = 1;
 			top++;
 			list[top].x = current.x - 1;
 			list[top].y = current.y;
 		}
-		if ((current.x + 1 < data->map.width) && visited[current.y][current.x + 1] != 1)
+		if (visited[current.y][current.x + 1] != 1)
 		{
 			visited[current.y][current.x + 1] = 1;
 			top++;
@@ -124,3 +122,11 @@ int	ft_flood_fill(t_game *data)
 	free_visited(visited, data->map.height);
 	return (EXIT_SUCCESS);
 }
+
+
+		// if (current.y < 0 || current.y >= data->map.height || current.x < 0)
+		// 	return (free_visited(visited, data->map.height),
+		// 		print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
+		// if (current.x >= data->map.width)
+		// 	return (free_visited(visited, data->map.height),
+		// 		print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
