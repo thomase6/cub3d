@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 20:16:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/09/08 15:58:03 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/10 11:40:47 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	fix_map(t_game *data)
 {
-	char *new_r;
-	int	y;
-	int space;
-	
+	char	*new_r;
+	int		y;
+	int		space;
+
 	y = 0;
 	while (data->map.map_grid[y] != NULL)
 	{
@@ -64,11 +64,11 @@ int	**create_visited(t_game *data)
 
 int	ft_flood_fill(t_game *data)
 {
-	int **visited;
+	int		**visited;
 	t_point	list[data->map.height * data->map.width];
-	t_point current;
-	int	top;
-	
+	t_point	current;
+	int		top;
+
 	top = -1;
 	visited = create_visited(data);
 	if (!visited)
@@ -82,16 +82,16 @@ int	ft_flood_fill(t_game *data)
 		current = list[top];
 		top--;
 		if (current.y < 0 || current.y >= data->map.height || current.x < 0)
-			return (free_visited(visited, data->map.height), 
-					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
+			return (free_visited(visited, data->map.height),
+				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
 		if (current.x >= data->map.width)
 			return (free_visited(visited, data->map.height),
-					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
+				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
 		if (data->map.map_grid[current.y][current.x] == ' ')
 			return (free_visited(visited, data->map.height),
-					print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
+				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
 		if (data->map.map_grid[current.y][current.x] == '1')
-			continue;
+			continue ;
 		if ((current.y - 1 >= 0) && visited[current.y - 1][current.x] != 1)
 		{
 			visited[current.y - 1][current.x] = 1;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stbagdah <stbagdah@student.42vienna.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/09 11:41:28 by stbagdah          #+#    #+#             */
+/*   Updated: 2026/11/09 11:43:53 by stbagdah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	free_game(t_game *data)
@@ -17,17 +29,15 @@ void	free_game(t_game *data)
 int	main(int ac, char **av)
 {
 	t_game		data;
+
 	(void)ac;
 	(void)av;
 	ft_bzero(&data, sizeof(data));
-
 	if (parser(&data, ac, av) != EXIT_SUCCESS)
 		return (free_game(&data), EXIT_FAILURE);
-	// mlx
 	if (init_game(&data) != EXIT_SUCCESS)
 		return (free_game(&data), EXIT_FAILURE);
 	mlx_loop(data.mlx);
-	//cleanup_game_mlx(&data); not shure here!!
 	return (free_game(&data), EXIT_SUCCESS);
 }
 
@@ -37,8 +47,11 @@ int	main(int ac, char **av)
 - the map file location should be the second argument of av so av[1] *DONE
 - Then we have to make sure it's a valid file name *DONE
 - Once the validation happens we have to read the file using getnextline *DONE
-- after making the loop to read each line now we need to parse each line and see if we can identify the ONLY valid points of info we can get from the file which are a total of 7
-- after identifying what part of info it is we have to save them to their respective points to be available for the rest of the project.
+- after making the loop to read each line now we need to parse each line 
+	and see if we can identify the ONLY valid points of info we can get
+	from the file which are a total of 7
+- after identifying what part of info it is we have to save them to their
+	respective points to be available for the rest of the project.
 - 4 files: parser, parse color, parse texture, parse map.
 
 */

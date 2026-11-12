@@ -6,7 +6,7 @@
 /*   By: stbagdah <stbagdah@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:54:11 by stbagdah          #+#    #+#             */
-/*   Updated: 2026/07/27 12:07:45 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/09 11:01:40 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void	clear_image(t_game *game)
 
 void	collision_check(t_game *game, t_next_position *movement, float radius)
 {
-	if (!is_wall(game, movement->next_x + radius, game->player.y)
-		&& !is_wall(game, movement->next_x - radius, game->player.y))
+	if (!is_wall(game, movement->next_x + radius, game->player.y + radius)
+		&& !is_wall(game, movement->next_x + radius, game->player.y - radius)
+		&& !is_wall(game, movement->next_x - radius, game->player.y + radius)
+		&& !is_wall(game, movement->next_x - radius, game->player.y - radius))
 		game->player.x = movement->next_x;
-	if (!is_wall(game, game->player.x, movement->next_y + radius)
-		&& !is_wall(game, game->player.x, movement->next_y - radius))
+	if (!is_wall(game, game->player.x + radius, movement->next_y + radius)
+		&& !is_wall(game, game->player.x + radius, movement->next_y - radius)
+		&& !is_wall(game, game->player.x - radius, movement->next_y + radius)
+		&& !is_wall(game, game->player.x - radius, movement->next_y - radius))
 		game->player.y = movement->next_y;
 }
 
@@ -34,7 +38,6 @@ void	render_game(t_game *game)
 {
 	draw_floor_ceiling(game);
 	ray_casting(game);
-	draw_minimap_background(game);
 	draw_minimap(game);
 	draw_minimap_rays(game);
 	draw_minimap_player(game);

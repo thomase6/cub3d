@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/09/08 15:57:07 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/09 11:09:33 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	validate_and_store_colors(char **s, int *target)
 {
 	int	i;
 	int	j;
-	int tmp;
-	int rgb[3];
+	int	tmp;
+	int	rgb[3];
 
 	i = 0;
 	while (s[i] != NULL)
@@ -35,7 +35,7 @@ int	validate_and_store_colors(char **s, int *target)
 		tmp = ft_atoi(s[i]);
 		if (tmp >= 0 && tmp <= 255)
 			rgb[i] = tmp;
-		else 
+		else
 			return (EXIT_FAILURE);
 		tmp = 0;
 		i++;
@@ -44,11 +44,11 @@ int	validate_and_store_colors(char **s, int *target)
 	return (EXIT_SUCCESS);
 }
 
-int	color_extraction(int *target, bool *flag,char *line)
+int	color_extraction(int *target, bool *flag, char *line)
 {
 	int		i;
 	char	**s;
-	
+
 	i = 1;
 	if (*flag != 0)
 		return (print_error(COLOR_DUP), EXIT_FAILURE);
@@ -74,14 +74,16 @@ int	color_extraction(int *target, bool *flag,char *line)
 int	parse_colors(t_game *data, char *line)
 {
 	if ((ft_strncmp(line, "C", 1) == 0) && (ft_is_space(line[1]) != 0))
-	{	
-		if (color_extraction(&data->map.c_color, &data->map.has_ceiling, line) != EXIT_SUCCESS)
+	{
+		if (color_extraction(&data->map.c_color,
+				&data->map.has_ceiling, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%d\n", data->map.c_color); //TESTING ONLY
 	}
 	if ((ft_strncmp(line, "F", 1) == 0) && (ft_is_space(line[1]) != 0))
-	{	
-		if (color_extraction(&data->map.f_color, &data->map.has_floor, line) != EXIT_SUCCESS)
+	{
+		if (color_extraction(&data->map.f_color,
+				&data->map.has_floor, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%d\n", data->map.f_color); //TESTING ONLY
 	}

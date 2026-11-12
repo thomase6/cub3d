@@ -32,6 +32,24 @@ void	rotate_player(t_game *game, double angle)
 void	move_player(t_game *game, t_next_position *movement,
 					int direction, float speed)
 {
-	movement->next_x += game->player.dir_x * direction * speed;
-	movement->next_y += game->player.dir_y * direction * speed;
+	if (direction == 0)
+	{
+		movement->next_x += game->player.dir_x * speed;
+		movement->next_y += game->player.dir_y * speed;
+	}
+	else if (direction == 1)
+	{
+		movement->next_x -= game->player.dir_x * speed;
+		movement->next_y -= game->player.dir_y * speed;
+	}
+	else if (direction == 2)
+	{
+		movement->next_x += game->player.dir_y * speed;
+		movement->next_y -= game->player.dir_x * speed;
+	}
+	else if (direction == 3)
+	{
+		movement->next_x -= game->player.dir_y * speed;
+		movement->next_y += game->player.dir_x * speed;
+	}
 }
