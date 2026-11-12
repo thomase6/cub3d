@@ -6,12 +6,12 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/08/31 16:17:28 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/09 11:40:28 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include "libft.h"
 # include <stdio.h>
@@ -22,7 +22,6 @@
 # include <math.h>
 # include <stdbool.h>
 # include <stdlib.h>
-
 
 //		Error Messages		//
 # define ARG_COUNT "Error\nWrong number of arguments\n"
@@ -35,7 +34,7 @@
 # define INV_COLOR "Error\nInvalid color\n"
 # define SPLIT_FAIL "Error\nft_split failed\n"
 # define EMPTY_COLOR "Error\nColor missing\n"
-# define INV_COLOR_AMOUNT "Error\nThe color must be displayed in the format rrr,ggg,bbb"
+# define INV_COLOR_AMOUNT "Error\n The color must be displayed in the format rrr,ggg,bbb"
 # define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map"
 # define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line."
 # define NOT_MAP_LINE "Error\nFound an invalid line in the map grid."
@@ -79,18 +78,18 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int	bpp;
-	int	line_len;
-	int	endian;
-	int	width;
-	int	height;
-} t_img;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
 
 typedef struct s_point
 {
-	int x;
-	int y;
-} t_point;
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_map
 {
@@ -98,7 +97,7 @@ typedef struct s_map
 	int		c_color; // ceiling color
 	bool	has_floor;	// flag for duplicate check
 	bool	has_ceiling; // flag for duplicate check
-	bool	map_started;	// flag to check if the parsing of the map has started
+	bool	map_started;	// flag to check if parsing map has started
 	char	*north;	// NO texture
 	char	*south;	// SO texture
 	char	*east; // EA texture
@@ -106,7 +105,7 @@ typedef struct s_map
 	char	**map_grid; // all the map lines
 	int		height;
 	int		width;
-} t_map;
+}	t_map;
 
 typedef struct s_player
 {
@@ -117,10 +116,12 @@ typedef struct s_player
 	float	dir_y;
 	float	plane_x;
 	float	plane_y;
-	int	move_forward;
-	int	move_backward;
-	int	turn_left;
-	int	turn_right;
+	int		move_forward;
+	int		move_backward;
+	int		move_right;
+	int		move_left;
+	int		turn_left;
+	int		turn_right;
 }	t_player;
 
 typedef struct s_next_position
@@ -131,42 +132,37 @@ typedef struct s_next_position
 
 typedef struct s_raycasting
 {
-	int	mapX;
-	int	mapY;
-	int	stepX;
-	int	stepY;
-	int	side;
-	int	hit;
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	sideDistX;
-	double	sideDistY;
-	double	perpWallDist;	
-} t_raycasting;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		hit;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;	
+}	t_raycasting;
 
 typedef struct s_ray
 {
 	float	ray_dir_x;
 	float	ray_dir_y;
-
 	int		map_x;
 	int		map_y;
-
 	float	side_dist_x;
 	float	side_dist_y;
-
 	float	delta_dist_x;
 	float	delta_dist_y;
-
 	int		step_x;
 	int		step_y;
-
 	int		side;
 }	t_ray;
 
@@ -185,17 +181,17 @@ typedef struct s_mini_ray
 
 typedef struct s_game
 {
-	void	*mlx;    // from mlx
-	void	*win;
-	void	*img;
-	char	*addr;
-	int	bpp;      // from mlx
-	int	line_len; // from mlx
-	int	endian;   // from mlx
-	t_img	tex[4];
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	t_img		tex[4];
 	t_map		map;
 	t_player	player;
-} t_game;
+}	t_game;
 
 typedef struct s_minimap
 {
@@ -204,35 +200,30 @@ typedef struct s_minimap
 	int	size;
 	int	tile_x;
 	int	tile_y;
- }   t_minimap;
- 
+}	t_minimap;
+
 //		Parsing Functions		//
-int	parser(t_game *data, int ac, char **av);
-int read_file(t_game *data, char **av);
-int	validate_arg(char **av);
-int process_line(t_game *data, char *line);
-int validate_all(t_game *data);
-int	validate_map(t_game *data);
+int		parser(t_game *data, int ac, char **av);
+int		read_file(t_game *data, char **av);
+int		validate_arg(char **av);
+int		process_line(t_game *data, char *line);
+int		validate_all(t_game *data);
+int		validate_map(t_game *data);
 
 //		texture_parse.c	//
-
-int	parse_textures(t_game *data, char *line);
-int	texture_extraction(char **target, char *line);
-int validate_textures(char *arg);
+int		parse_textures(t_game *data, char *line);
+int		texture_extraction(char **target, char *line);
+int		validate_textures(char *arg);
 
 //		color_parse.c	//
-
-int	parse_colors(t_game *data, char *line);
-int	color_extraction(int *target, bool *flag,char *line);
-int	validate_and_store_colors(char **s, int *target);
+int		parse_colors(t_game *data, char *line);
+int		color_extraction(int *target, bool *flag, char *line);
+int		validate_and_store_colors(char **s, int *target);
 
 //		map_parse.c		//
-
-int	parse_map(t_game *data, char *line);
-int	is_mapchar(char c);
-int	store_grid_and_player(t_game *data, char *line);
-
-//		Utils					//
+int		parse_map(t_game *data, char *line);
+int		is_mapchar(char c);
+int		store_grid_and_player(t_game *data, char *line);
 
 //		error_handling.c		//
 void	print_error(char *msg);
@@ -240,25 +231,24 @@ void	free_arr(char **array);
 void	free_visited(int **visited, int height);
 
 //		floodfill.c		//
-int	ft_flood_fill(t_game *data);
-int	**create_visited(t_game *data);
-int	fix_map(t_game *data);
+int		ft_flood_fill(t_game *data);
+int		**create_visited(t_game *data);
+int		fix_map(t_game *data);
 
-
-//		init					//
-// Initialization                                  //
-int	init_game(t_game *game);
-int	close_game(t_game *game);
-int	key_press(int keycode, t_game *game);
-int	key_release(int keycode, t_game *game);
-int	update(t_game *game);
-int	is_wall(t_game *game, float x, float y);
+//		Initialization          //
+int		init_game(t_game *game);
+int		close_game(t_game *game);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+int		update(t_game *game);
+int		is_wall(t_game *game, float x, float y);
 void	clear_image(t_game *game);
 void	collision_check(t_game *game, t_next_position *movement, float radius);
 void	render_game(t_game *game);
 void	display_frame(t_game *game);
 void	rotate_player(t_game *game, double angle);
-void	move_player(t_game *game, t_next_position * movement, int direction, float speed);
+void	move_player(t_game *game, t_next_position *movement,
+			int direction, float speed);
 void	put_pixel(t_game *game, int x, int y, int color);
 void	draw_player_direction(t_game *game);
 void	draw_direction(t_game *game);
@@ -272,15 +262,15 @@ void	draw_minimap_tile(t_game *game, int map_x, int map_y);
 void	draw_minimap_rays(t_game *game);
 void	ray_casting(t_game *game);
 void	init_player(t_game *game);
-int	load_textures(t_game *game);
+int		load_textures(t_game *game);
 void	draw_floor_ceiling(t_game *game);
 void	free_textures(t_game *game);
 void	free_game(t_game *game);
-int	get_tex_color(t_img *tex, int x, int y);
-void	cleanup_game_mlx(t_game *data); // not shure which to use game or data!
-//void    render(t_game *game);
-//void    move_player(t_game *game);
-//void    draw_map(t_game *game);
-//void    handle_key(int keycode, t_game *game);
+int		get_tex_color(t_img *tex, int x, int y);
+void	cleanup_game_mlx(t_game *data);
+void	draw_wall(t_game *game, t_raycasting *ray, int x);
+void	calculate_wall(t_raycasting *ray);
+t_img	*pick_texture(t_game *game, t_raycasting *ray);
+void	draw_tile(t_game *game, int minimap_x, int minimap_y, int color);
 
 #endif

@@ -58,5 +58,5 @@ int	get_tex_color(t_img *tex, int x, int y)
 	if (x < 0 || y < 0 || x >= tex->width || y >= tex->height)
 		return (0);
 	return (*(unsigned int *)(tex->addr + y * tex->line_len
-			+ x * (tex->bpp / 8)));
+		+ x * (tex->bpp / 8)));
 }

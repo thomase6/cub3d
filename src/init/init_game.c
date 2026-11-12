@@ -11,25 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/* 
-1. start mlx
-2. create window
-3. create image buffer
-4. connect map
-5. setup player
-6. register events
-7. start loop
-*/
-
-/*
-update
- ├── clear_image()
- ├── rotate_player()
- ├── move_player()
- ├── collision_check()
- ├── render_game()
- └── display_frame()
- */
 
 int	update(t_game *game)
 {
@@ -43,9 +24,13 @@ int	update(t_game *game)
 	if (game->player.turn_right)
 		rotate_player(game, ROT_SPEED);
 	if (game->player.move_forward)
-		move_player(game, &movement, 1, SPEED);
+		move_player(game, &movement, 0, SPEED);
 	if (game->player.move_backward)
-		move_player(game, &movement, -1, SPEED);
+		move_player(game, &movement, 1, SPEED);
+	if (game->player.move_left)
+		move_player(game, &movement, 2, SPEED);
+	if (game->player.move_right)
+		move_player(game, &movement, 3, SPEED);
 	collision_check(game, &movement, RADIUS);
 	render_game(game);
 	display_frame(game);
@@ -54,34 +39,28 @@ int	update(t_game *game)
 
 int	init_game(t_game *game)
 {
-	game->mlx = mlx_init();// start MLX connection to the graphics system
+	game->mlx = mlx_init();
 	if (load_textures(game) != EXIT_SUCCESS)
 	{
 		free_textures(game);
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 		return (EXIT_FAILURE);
-	}	
-	if (!game->mlx)// a tool that lets you talk to the screen	
-		return (EXIT_FAILURE);// program -> MLX -> OS -> screen
-	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D"); // creating window on the screen
-	if (!game->win)// size plus title USE VARIABLE!!
-	{
-		free(game->mlx);
-		return (EXIT_FAILURE);
 	}
-	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);//fake screen in memory FRAMEBUFFER
-	game->addr = mlx_get_data_addr(game->img,// draw pixel by pixel in memory than push to window
-			&game->bpp,// addr -> pointer to pixel in memory bpp-> bits per pixel usualy 32
-			&game->line_len,// how many bytes per row given from mlx plus minus padding
-			&game->endian);// byte order -> little endian here back to fron Ox11223344 -> 44332211
-// game->map.map_grid = map; // assigning static map in game struct game->map->grid->"11100101010111..."
-	init_player(game);// now player exist inside game at pos x,y
-	mlx_hook(game->win, 17, 0, close_game, game);// ESC close game
-	mlx_hook(game->win, 2, 1L << 0, key_press, game);// when key is pressed->key_press()
-	mlx_hook(game->win, 3, 1L << 1, key_release, game);// when key is release->key_release()
-	mlx_loop_hook(game->mlx, update, game);// call update every frame (60 per sec)
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);// pushes buffer to screen
-	mlx_loop(game->mlx);// hand control to MLX forever program runs now in MLX
+	if (!game->mlx)
+		return (EXIT_FAILURE);
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	if (!game->win)
+		return ((free(game->mlx)), EXIT_FAILURE);
+	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	game->addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_len,
+			&game->endian);
+	init_player(game);
+	mlx_hook(game->win, 17, 0, close_game, game);
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
+	mlx_loop_hook(game->mlx, update, game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	mlx_loop(game->mlx);
 	return (EXIT_SUCCESS);
 }

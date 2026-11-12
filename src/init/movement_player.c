@@ -18,9 +18,13 @@ int	key_press(int keycode, t_game *game)
 		game->player.move_forward = 1;
 	if (keycode == KEY_S || keycode == KEY_DOWN)
 		game->player.move_backward = 1;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	if (keycode == KEY_A)
+		game->player.move_left = 1;
+	if (keycode == KEY_D)
+		game->player.move_right = 1;
+	if (keycode == KEY_LEFT)
 		game->player.turn_left = 1;
-	if (keycode == KEY_D || keycode == KEY_RIGHT)
+	if (keycode == KEY_RIGHT)
 		game->player.turn_right = 1;
 	if (keycode == ESC)
 		close_game(game);
@@ -33,9 +37,13 @@ int	key_release(int keycode, t_game *game)
 		game->player.move_forward = 0;
 	if (keycode == KEY_S || keycode == KEY_DOWN)
 		game->player.move_backward = 0;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	if (keycode == KEY_A)
+		game->player.move_left = 0;
+	if (keycode == KEY_D)
+		game->player.move_right = 0;
+	if (keycode == KEY_LEFT)
 		game->player.turn_left = 0;
-	if (keycode == KEY_D || keycode == KEY_RIGHT)
+	if (keycode == KEY_RIGHT)
 		game->player.turn_right = 0;
 	return (0);
 }

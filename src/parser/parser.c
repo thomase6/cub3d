@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/09/08 15:57:47 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/10 11:39:26 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	validate_map(t_game *data)
 	while (data->map.map_grid[y])
 	{
 		x = 0;
-		while(data->map.map_grid[y][x] != '\0')
+		while (data->map.map_grid[y][x] != '\0')
 		{
-			if (data->map.map_grid[y][x] == 'N' || 
-				data->map.map_grid[y][x] == 'S' || 
-				data->map.map_grid[y][x] == 'E' || 
-				data->map.map_grid[y][x] == 'W')
+			if (data->map.map_grid[y][x] == 'N'
+				|| data->map.map_grid[y][x] == 'S'
+				|| data->map.map_grid[y][x] == 'E'
+				|| data->map.map_grid[y][x] == 'W')
 			{
 				p_count += 1;
 				data->player.x = x; // REMINDER: ADD 0.5 TO X AND Y AFTER VALIDATION OF EVERYTHING IS DONE
@@ -52,32 +52,32 @@ int	validate_map(t_game *data)
 	return (EXIT_SUCCESS);
 }
 
-int validate_all(t_game *data)
+int	validate_all(t_game *data)
 {
-	if (data->map.north == NULL || data->map.south == NULL || 
-		data->map.east == NULL || data->map.west == NULL || 
-		data->map.has_ceiling == false || data->map.has_floor == false)
+	if (data->map.north == NULL || data->map.south == NULL
+		|| data->map.east == NULL || data->map.west == NULL
+		|| data->map.has_ceiling == false || data->map.has_floor == false)
 		return (print_error(MISS_CONFIG), EXIT_FAILURE);
 	if (validate_map(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int process_line(t_game *data, char *line)
+int	process_line(t_game *data, char *line)
 {
 	char	*s;
 
-	if ((s = ft_strrchr(line, '\n')) != 0)
+	if ((s = ft_strrchr(line, '\n')) != 0) // norminette complains assingment in controll structure
 		*s = '\0';
 	if (line[0] == '\0')
 	{
 		if (data->map.map_started != 0)
 			return (print_error(EMPTY_LINE_IN_MAP), EXIT_FAILURE);
 		else
-			return (EXIT_SUCCESS); 
+			return (EXIT_SUCCESS);
 	}
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || 
-		ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
+		|| ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
 	{
 		if (parse_textures(data, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
@@ -87,7 +87,7 @@ int process_line(t_game *data, char *line)
 		if (parse_colors(data, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
-	else 
+	else
 	{
 		if (parse_map(data, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
@@ -95,15 +95,15 @@ int process_line(t_game *data, char *line)
 	return (EXIT_SUCCESS);
 }
 
-int read_file(t_game *data, char **av)
-{	
-	int	fd;
-	char *line;
+int	read_file(t_game *data, char **av)
+{
+	int		fd;
+	char	*line;
 
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
-	while((line = get_next_line(fd)))
+	while ((line = get_next_line(fd))) // assignment in control structur
 	{
 		if (process_line(data, line) != EXIT_SUCCESS)
 			return (get_next_line(-1), free(line), close(fd), EXIT_FAILURE);
@@ -115,8 +115,8 @@ int read_file(t_game *data, char **av)
 
 int	validate_arg(char **av)
 {
-	int	len;
-	char *cub_str;
+	int		len;
+	char	*cub_str;
 
 	len = ft_strlen(av[1]);
 	if (len < 4)
@@ -131,8 +131,8 @@ int	validate_arg(char **av)
 
 int	parser(t_game *data, int ac, char **av)
 {
-	int i; //TESTING ONLY
-	
+	int	i; //TESTING ONLY
+
 	i = 0; //TESTING ONLY
 	if (ac != 2)
 		return (print_error(ARG_COUNT), EXIT_FAILURE);

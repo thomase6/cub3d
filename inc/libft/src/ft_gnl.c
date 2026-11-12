@@ -78,4 +78,3 @@ char	*get_next_line(int fd)
 		free (leftover);
 	return (line);
 }
-

@@ -6,135 +6,71 @@
 /*   By: stbagdah <stbagdah@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 13:20:17 by stbagdah          #+#    #+#             */
-/*   Updated: 2026/07/29 08:52:01 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/10 10:18:58 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// creates the ray for the current screen column
 static void	init_ray(t_game *game, t_raycasting *ray, int x)
 {
-	ray->cameraX = 2 * x / (double)WIN_WIDTH -1;
-	ray->rayDirX = game->player.dir_x + game->player.plane_x * ray->cameraX;
-	ray->rayDirY = game->player.dir_y + game->player.plane_y * ray->cameraX;
-	ray->mapX = (int)game->player.x;
-	ray->mapY = (int)game->player.y;
-	ray->deltaDistX = fabs(1.0 / ray->rayDirX);
-	ray->deltaDistY = fabs(1.0 / ray->rayDirY);
+	ray->camera_x = 2 * x / (double)WIN_WIDTH -1;
+	ray->ray_dir_x = game->player.dir_x + game->player.plane_x * ray->camera_x;
+	ray->ray_dir_y = game->player.dir_y + game->player.plane_y * ray->camera_x;
+	ray->map_x = (int)game->player.x;
+	ray->map_y = (int)game->player.y;
+	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
 }
 
+// calculates direction and initial distances to grid boundaries
 static void	calculate_step(t_game *game, t_raycasting *ray)
 {
-	if (ray->rayDirX < 0)
-		ray->stepX = -1;
+	if (ray->ray_dir_x < 0)
+		ray->step_x = -1;
 	else
-		ray->stepX = 1;// can me put this together ? i think so :)
-	if (ray->rayDirY < 0)
-		ray->stepY = -1;
+		ray->step_x = 1;
+	if (ray->ray_dir_y < 0)
+		ray->step_y = -1;
 	else
-		ray->stepY = 1;
-	if (ray->stepX < 0)
-		ray->sideDistX = (game->player.x - ray->mapX) * ray->deltaDistX;
+		ray->step_y = 1;
+	if (ray->step_x < 0)
+		ray->side_dist_x = (game->player.x - ray->map_x) * ray->delta_dist_x;
 	else
-		ray->sideDistX = (ray->mapX + 1.0 - game->player.x) * ray->deltaDistX;
-	if (ray->stepY < 0)
-		ray->sideDistY = (game->player.y - ray->mapY) * ray->deltaDistY;
+		ray->side_dist_x = (ray->map_x + 1.0 - game->player.x)
+			* ray->delta_dist_x;
+	if (ray->step_y < 0)
+		ray->side_dist_y = (game->player.y - ray->map_y) * ray->delta_dist_y;
 	else
-		ray->sideDistY = (ray->mapY + 1.0 - game->player.y) * ray->deltaDistY;
+		ray->side_dist_y = (ray->map_y + 1.0 - game->player.y)
+			* ray->delta_dist_y;
 }
 
+// travels through the map until it hits a wall
 static void	perform_dda(t_game *game, t_raycasting *ray)
 {
 	ray->hit = 0;
 	while (!ray->hit)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (is_wall(game, ray->mapX, ray->mapY))
+		if (is_wall(game, ray->map_x, ray->map_y))
 			ray->hit = 1;
 	}
 }
 
-static void	calculate_wall(t_raycasting *ray)
-{
-	if (!ray->side)
-		ray->perpWallDist = ray->sideDistX - ray->deltaDistX;
-	else
-		ray->perpWallDist = ray->sideDistY - ray->deltaDistY;
-	ray->lineHeight = (int)(WIN_HEIGHT / ray->perpWallDist);
-	ray->drawStart = -ray->lineHeight / 2 + WIN_HEIGHT / 2;
-	ray->drawEnd = ray->lineHeight / 2 + WIN_HEIGHT / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	if (ray->drawEnd >= WIN_HEIGHT)
-		ray->drawEnd = WIN_HEIGHT -1;
-}
-
-static t_img	*pick_texture(t_game *game, t_raycasting *ray)
-{
-	if (ray->side == 0)
-	{
-		if (ray->rayDirX > 0)
-			return (&game->tex[EA]);
-		return (&game->tex[WE]);
-	}
-	if (ray->rayDirY > 0)
-		return (&game->tex[SO]);
-	return (&game->tex[NO]);
-}
-
-static void	draw_wall(t_game *game, t_raycasting *ray, int x)
-{
-	t_img	*tex;
-	double	wall_x;
-	double	tex_pos;
-	int		tex_x;
-	int		y;
-
-	tex = pick_texture(game, ray);
-	if (ray->side == 0)
-		wall_x = game->player.y + ray->perpWallDist * ray->rayDirY;
-	else
-		wall_x = game->player.x + ray->perpWallDist * ray->rayDirX;
-	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * tex->width);
-	if ((ray->side == 0 && ray->rayDirX < 0)
-		|| (ray->side == 1 && ray->rayDirY > 0))
-		tex_x = tex->width - tex_x - 1;
-	tex_pos = (ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2)
-		* ((double)tex->height / ray->lineHeight);
-	y = ray->drawStart;
-	while (y < ray->drawEnd)
-	{
-		put_pixel(game, x, y, get_tex_color(tex, tex_x, (int)tex_pos));
-		tex_pos += (double)tex->height / ray->lineHeight;
-		y++;
-	}
-}
-/*
-static void	draw_wall(t_game *game, t_raycasting *ray, int x)
-{
-	int	y;
-
-	y = ray->drawStart;
-	while (y < ray->drawEnd)
-	{
-		put_pixel(game, x, y, 0x00FFFFFF);
-		y++;
-	}
-}
-*/
-
+// calculates the walls distance and projected height
 void	ray_casting(t_game *game)
 {
 	t_raycasting	ray;
@@ -151,75 +87,3 @@ void	ray_casting(t_game *game)
 		x++;
 	}
 }
-/*
-void	ray_casting(t_game *game)
-{
-	int		x;
-	int		y;
-	t_raycasting	ray;
-
-	x = 0;
-	while (x < WIN_WIDTH)
-	{
-		ray.cameraX = 2 * x / (double)WIN_WIDTH -1;
-		ray.rayDirX = game->player.dir_x + game->player.plane_x * ray.cameraX;
-		ray.rayDirY = game->player.dir_y + game->player.plane_y * ray.cameraX;
-		ray.mapX = (int)game->player.x;
-		ray.mapY = (int)game->player.y;
-		ray.deltaDistX = fabs(1 / ray.rayDirX);
-		ray.deltaDistY = fabs(1 / ray.rayDirY);
-		if (ray.rayDirX < 0)
-			ray.stepX = -1;
-		else
-			ray.stepX = 1;     // can me put this together ? i think so :)
-		if (ray.rayDirY < 0)
-			ray.stepY = -1;
-		else
-			ray.stepY = 1;
-		if (ray.stepX < 0)
-			ray.sideDistX = (game->player.x - ray.mapX) * ray.deltaDistX;
-		else
-			 ray.sideDistX = (ray.mapX + 1.0 - game->player.x) * ray.deltaDistX;
-		if (ray.stepY < 0)
-			ray.sideDistY = (game->player.y - ray.mapY) * ray.deltaDistY;
-		else
-			ray.sideDistY = (ray.mapY + 1.0 -game->player.y) * ray.deltaDistY;
-		ray.hit = 0;
-		while (!ray.hit)
-		{
-			if (ray.sideDistX < ray.sideDistY)
-			{
-				ray.sideDistX += ray.deltaDistX;
-				ray.mapX += ray.stepX;
-				ray.side = 0;
-			}
-			else
-			{
-				ray.sideDistY += ray.deltaDistY;
-				ray.mapY += ray.stepY;
-				ray.side = 1;
-			}
-			if (is_wall(game, ray.mapX, ray.mapY))
-				ray.hit = 1;	
-		}
-		if (!ray.side)
-			ray.perpWallDist = ray.sideDistX - ray.deltaDistX;
-		else
-			ray.perpWallDist = ray.sideDistY - ray.deltaDistY;
-		ray.lineHeight = (int)(WIN_HEIGHT / ray.perpWallDist);
-		ray.drawStart = - ray.lineHeight / 2 + WIN_HEIGHT / 2;
-		ray.drawEnd = ray.lineHeight / 2 + WIN_HEIGHT / 2;
-		if (ray.drawStart < 0)
-			ray.drawStart = 0;
-		if (ray.drawEnd >= WIN_HEIGHT)
-			ray.drawEnd = WIN_HEIGHT -1;
-		y = ray.drawStart;
-		while (y < ray.drawEnd)
-		{
-			put_pixel(game, x , y, 0x00FFFFFF);
-			y++;
-		}
-		x++;
-	}
-}
-*/

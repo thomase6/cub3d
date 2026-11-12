@@ -1,113 +1,105 @@
-TEMPORARY:
+*This project has been created as part of the 42 curriculum by nildruon, dstumpf.*
 
-Program Name: cub3D
-Files to Submit: All your files
-Makefile: all, clean, fclean, re, bonus
-Arguments: a map in format *.cub
-External Function:
-• open, close, read, write,
-printf, malloc, free, perror,
-strerror, exit, gettimeofday.
-• All functions of the math
-library (-lm man man 3 math).
-• gettimeofday()
-• All functions of the MinilibX
-library.
-Libft authorized Yes
-Description You must create a “realistic” 3D graphical
-representation of the inside of a maze from a
-first-person perspective. You have to create this
-representation using the ray-casting principles
-mentioned earlier.
+# cub3D
 
-Goal: You must create a “realistic” 3D graphical
-representation of the inside of a maze from a
-first-person perspective. You have to create this
-representation using the ray-casting principles
-mentioned earlier.
+## Description
 
+**cub3D** is a 3D graphical project inspired by the world-famous 1992 classic *Wolfenstein 3D* by id Software, widely considered the first true first-person shooter (FPS).
 
-We are supposed to use the Minilibx to generate a 3d representation of the maps in the map folder. To do this we need to learn how to properly format the map with the required information. The map document must also include the address of the textures for each cardinal direction. We must also set the color for both the floor and the ceiling with 2 different color. the map itself must be drawn with 6 possible characters: 0 for an empty space, 1 for a wall and N, E, W, S for their respective cardinal directions which will be the direction that the player is facing in the map.
+The goal of this project is to build a dynamic first-person view inside a maze using the principles of **raycasting** and the **MiniLibX** graphical library in C. Unlike modern 3D engines that rely on polygonal meshes and GPU shaders, a raycaster projects a 3D perspective from a 2D grid map by casting one ray per vertical column of the screen and computing wall distances using the **Digital Differential Analyzer (DDA)** algorithm.
 
-EX:
+### Key Features
+- **Scene & Map Parsing**: Reads `.cub` scene description files specifying North, South, East, and West wall textures (`.xpm`), Floor and Ceiling RGB colors, and a closed 2D maze grid.
+- **Map Validation**: Ensures all configuration elements are valid, textures can be loaded, RGB values are within `[0, 255]`, a single player spawn exists (`N`, `S`, `E`, or `W`), and the map is completely enclosed by walls (`1`).
+- **DDA Raycasting Engine**: Casts rays across the player's field of view at a resolution of `1920x1080`, calculating perpendicular wall distances to prevent fish-eye distortion.
+- **Textured Walls**: Maps directional XPM textures onto vertical wall slices depending on the cardinal orientation of the wall face hit (`NORTH`, `SOUTH`, `EAST`, `WEST`).
+- **Smooth Controls & Collision Detection**: Frame-rate independent movement and camera rotation using delta time (`gettimeofday`), complete with wall collision buffers.
+
+---
+
+## Instructions
+
+### Prerequisites
+- A Linux environment with the **X11** windowing system.
+- `cc` (Clang) and `make`.
+- **MiniLibX** (`-lmlx`) and X11 development libraries (`-lXext`, `-lX11`, `-lm`).
+
+### Compilation
+Clone the repository and run `make` at the root of the project:
+
+```bash
+make
+```
+
+Available `Makefile` rules:
+- `make` or `make all` — Compiles `libft` and builds the `cub3D` executable.
+- `make clean` — Removes object (`.o`) and dependency (`.d`) files.
+- `make fclean` — Removes object/dependency files and the `cub3D` binary.
+- `make re` — Performs a full recompilation (`fclean` followed by `all`).
+- `make norm` — Runs the norminette check script (`./norm.sh`).
+
+### Execution
+Run the executable by passing a valid `.cub` map file as its sole argument:
+
+```bash
+./cub3D lol.cub
+```
+
+### Controls
+| Key | Action |
+| :--- | :--- |
+| `W` | Move forward |
+| `S` | Move backward |
+| `A` | Strafe left |
+| `D` | Strafe right |
+| `←` (Left Arrow) | Rotate camera left |
+| `→` (Right Arrow) | Rotate camera right |
+| `ESC` / Window `X` | Exit the program cleanly |
+
+### Map Format (`.cub`)
+A valid `.cub` file consists of two parts: the **scene configuration data** followed by the **2D map grid**, which **must always be last** in the file.
+
+```text
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+
+F 220,100,3
+C 225,30,0
+
 111111
-100101
+1000N1
 101001
-1100N1
 111111
-
-for the parsing of the map.cub: 
-
-- If the map isn't surrounded by walls (1), return an error.
-- Except for the map content, each element can be seperated by one or more empty lines.
-- Except for the map each type of information from an element can be seperated by one or more spaces.
-- The map content must be the last element in the document but the other elements can be in any order.
-- The map must be parsed as it looks in the file. Spaces are a valid part of the map and are up to you to handle.
-- Except for the map, each element must begin with its type identifier, followed by its specific information in a STRICT order.
-
-Formating of the elements:
-1. Textures:
-- North Texture: `NO` ./path_to_the_north_texture
-- South Texture: `SO` ./path_to_the_south_texture 
-- West Texture: `WE` ./path_to_the_west_texture
-- East Texture: `EA` ./path_to_the_east_texture
-2. Colors:
-- Floor color: `F` (RGB colors in range 0-255): 0, 255, 255
-- Ceiling color: `C` (RGB colors in range 0-255): 0, 255, 255
-
-Example *.cub:
-```
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture 
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-
-F 220, 100, 0
-C 225, 30, 0
-
-        1111111111111111111111111
-        1000000000110000000000001
-        1011000001110000000000001
-        1001000000000000000000001
-111111111011000001110000000000001
-100000000011000001110111111111111
-11110111111111011100000010001
-11110111111111011101010010001
-11000000110101011100000010001
-10000000000000001100000010001
-10000000000000001101010010001
-11000001110101011111011110N0111
-11110111 1110101 101111010001
-11111111 1111111 111111111111
 ```
 
-- If the *.cub contains any misconfigurations, the program must exit properly and return "Error\n" followed by an explicit error message of our choice.
+#### Scene Configuration Data Rules
+- **Elements**:
+  - `NO`, `SO`, `WE`, `EA`: Paths to the XPM textures for each wall orientation.
+  - `F`, `C`: Floor and Ceiling colors in `R,G,B` format (`0–255`).
+- **Ordering**: The configuration elements above the map can appear in **any order**, as long as all of them are defined **before** the map starts (no configuration data is allowed after the map).
+- **Whitespace**: Leading, trailing, and one or multiple spaces between an identifier and its value are allowed (e.g., `"  EA   ./textures/west.xpm  "`).
+- **Line Separators**: Empty lines separating configuration elements must consist strictly of a newline (`\n`).
 
-requirements for the README.md:
+#### Map Grid Rules
+- **Position**: The map **must be the very last element** in the `.cub` file.
+- **Allowed Characters**:
+  - `' '` (literal space character only — **no tabs** or other whitespace characters)
+  - `'1'` (wall)
+  - `'0'` (walkable floor)
+  - `'N'`, `'S'`, `'E'`, or `'W'` (single player starting position and cardinal spawn orientation)
+- **Line Endings**: Each line of the map is separated by a `\n`, **except the very last line** (no trailing newline after the final map row).
+- **Enclosure**: The map must be completely surrounded by walls (`1`) — no walkable floor (`0`) or player cardinal direction (`N`, `S`, `E`, `W`) is allowed on the outer border of the map or adjacent to spaces.
 
-- *This project has been created as a part of the 42 curriculum by texenber and stbagdah*
-- Description
-- Instructions
-- Resources
-- AI Usage
+---
 
-Bonus:
-- Wall collisions.
-- A minimap system.
-- Doors which can open and close.
-- Animated sprites.
-- Rotate the point of view with the mouse.
+## Resources
 
-Division of Work for cub3d
+### Classic References
+- [Lode's Computer Graphics Tutorial — Raycasting](https://lodev.org/cgtutor/raycasting.html): The definitive guide to DDA raycasting, camera plane mathematics, perpendicular wall distance, and texture mapping.
 
-texenber: reads and validates the .cub file, builds the map grid as a 2D array, stores texture paths, colors, and the player's starting position/direction. This is pure C string/file work. Also owns error handling and memory cleanup.
-
-stbagdah: implements the game loop with mlx, the DDA raycasting algorithm, player movement/rotation, and drawing wall slices + floor/ceiling.
-
-The Structs we can use for this are:
-
-- t_game: will hold all the other structures so we can pass this to every single function 
-- t_map: This one will hold the parameters of the map and will be the one that will be mostly filled up by the person doing parsing.
-- t_player: will hold the information related to the player, from the position to the movement speed and rotation speed.
-
-this 3 structs can be shared because most of the data related from the map comes from the map.cub file which will be parsed and stored in the struct. then we will also use t_player to store the position of the player that is also received from the map.cub file. 
+### AI Usage
+AI tools were used during the development of this project for the following tasks:
+- **Mathematical & Conceptual Clarification**: Reviewing vector rotation formulas, camera plane projection math, and the DDA step-size calculations to avoid fish-eye distortion.
+- **Documentation**: Structuring and drafting this `README.md` file in accordance with the 42 subject specifications.

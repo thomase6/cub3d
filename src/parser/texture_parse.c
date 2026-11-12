@@ -6,16 +6,16 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 08:50:33 by texenber          #+#    #+#             */
-/*   Updated: 2026/09/07 18:19:58 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/09 13:16:08 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int validate_textures(char *arg)
+int	validate_textures(char *arg)
 {
-	int	len;
-	char *tex_str;
+	int		len;
+	char	*tex_str;
 
 	len = ft_strlen(arg);
 	if (len < 4)
@@ -31,10 +31,10 @@ int validate_textures(char *arg)
 int	texture_extraction(char **target, char *line)
 {
 	int		i;
-	
+
 	i = 2;
 	if (*target != NULL)
-		return(print_error(TEXT_DUP), EXIT_FAILURE);
+		return (print_error(TEXT_DUP), EXIT_FAILURE);
 	while (ft_is_space(line[i]) != 0)
 		i++;
 	*target = ft_strdup(line + i);
@@ -48,28 +48,28 @@ int	texture_extraction(char **target, char *line)
 int	parse_textures(t_game *data, char *line)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)
-	{	
+	{
 		if (texture_extraction(&data->map.north, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%s\n", data->map.north); // FOR TESTING ONLY
 	}
 	if (ft_strncmp(line, "SO", 2) == 0)
-	{	
+	{
 		if (texture_extraction(&data->map.south, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%s\n", data->map.south); // FOR TESTING ONLY
 	}
 	if (ft_strncmp(line, "EA", 2) == 0)
-	{	
+	{
 		if (texture_extraction(&data->map.east, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%s\n", data->map.east); // FOR TESTING ONLY
 	}
 	if (ft_strncmp(line, "WE", 2) == 0)
-	{	
+	{
 		if (texture_extraction(&data->map.west, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		printf("%s\n", data->map.west); // FOR TESTING ONLY
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
