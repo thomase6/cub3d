@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/08/30 14:49:49 by texenber         ###   ########.fr        #
+#    Updated: 2026/11/14 17:00:04 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ NAME		=	cub3D
 
 #ingredients
 
-SRC			=	main.c			\
+SRC			=	main.c	\
 				utils/error_handle.c	\
 				utils/flood_fill.c	\
+				utils/flood_fill_helper.c	\
+				utils/validate_map.c	\
 				init/init_game.c	\
 				init/minimap.c          \
 				init/minimap1.c		\

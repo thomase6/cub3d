@@ -6,41 +6,11 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 20:16:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/10 11:40:47 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/14 17:04:59 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	fix_map(t_game *data)
-{
-	char	*new_r;
-	int		y;
-	int		space;
-
-	y = 0;
-	while (data->map.map_grid[y] != NULL)
-	{
-		if ((int)ft_strlen(data->map.map_grid[y]) < data->map.width)
-		{
-			new_r = malloc(sizeof(char) * (data->map.width + 1));
-			if (!new_r)
-				return (EXIT_FAILURE);
-			ft_strlcpy(new_r, data->map.map_grid[y], data->map.width + 1);
-			space = (int)ft_strlen(data->map.map_grid[y]);
-			while (space < data->map.width)
-			{
-				new_r[space] = ' ';
-				space++;
-			}
-			new_r[data->map.width] = '\0';
-			free(data->map.map_grid[y]);
-			data->map.map_grid[y] = new_r;
-		}
-		y++;
-	}
-	return (EXIT_SUCCESS);
-}
 
 int	**create_visited(t_game *data)
 {
@@ -62,65 +32,49 @@ int	**create_visited(t_game *data)
 	return (tmp);
 }
 
+int	check_cell(t_game *data, t_point current)
+{
+	if (data->map.map_grid[current.y][current.x] == ' ')
+		return (1);
+	if (data->map.map_grid[current.y][current.x] == '1')
+		return (2);
+	if (current.x == 0 || current.x == data->map.width - 1
+		|| current.y == 0 || current.y == data->map.height - 1)
+		return (1);
+	return (0);
+}
+
+void	push_neighbors(int **visited, t_point *list, int *top, t_point current)
+{
+	push_y(visited, list, top, current);
+	push_x(visited, list, top, current);
+}
+
 int	ft_flood_fill(t_game *data)
 {
 	int		**visited;
-	t_point	list[data->map.height * data->map.width];
+	t_point	*list;
 	t_point	current;
 	int		top;
+	int		res;
 
-	top = -1;
 	visited = create_visited(data);
-	if (!visited)
-		return (EXIT_FAILURE);
-	top++;
-	list[top].x = data->player.x;
-	list[top].y = data->player.y;
-	visited[(int)data->player.y][(int)data->player.x] = 1;
+	list = malloc(sizeof(t_point) * (data->map.height * data->map.width));
+	if (!list || !visited)
+		return (free_flood(visited, list, data->map.height),
+			print_error(ALLOC_FAIL), EXIT_FAILURE);
+	init_list_and_visited(visited, list, &top, data);
 	while (top != -1)
 	{
-		current = list[top];
-		top--;
-		if (current.y < 0 || current.y >= data->map.height || current.x < 0)
-			return (free_visited(visited, data->map.height),
+		current = list[top--];
+		res = check_cell(data, current);
+		if (res == 1)
+			return (free_flood(visited, list, data->map.height),
 				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (current.x >= data->map.width)
-			return (free_visited(visited, data->map.height),
-				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (data->map.map_grid[current.y][current.x] == ' ')
-			return (free_visited(visited, data->map.height),
-				print_error(MAP_NOT_ENCLOSED), EXIT_FAILURE);
-		if (data->map.map_grid[current.y][current.x] == '1')
+		else if (res == 2)
 			continue ;
-		if ((current.y - 1 >= 0) && visited[current.y - 1][current.x] != 1)
-		{
-			visited[current.y - 1][current.x] = 1;
-			top++;
-			list[top].x = current.x;
-			list[top].y = current.y - 1;
-		}
-		if ((current.y + 1 < data->map.height) && visited[current.y + 1][current.x] != 1)
-		{
-			visited[current.y + 1][current.x] = 1;
-			top++;
-			list[top].x = current.x;
-			list[top].y = current.y + 1;
-		}
-		if ((current.x - 1 >= 0) && visited[current.y][current.x - 1] != 1)
-		{
-			visited[current.y][current.x - 1] = 1;
-			top++;
-			list[top].x = current.x - 1;
-			list[top].y = current.y;
-		}
-		if ((current.x + 1 < data->map.width) && visited[current.y][current.x + 1] != 1)
-		{
-			visited[current.y][current.x + 1] = 1;
-			top++;
-			list[top].x = current.x + 1;
-			list[top].y = current.y;
-		}
+		push_neighbors(visited, list, &top, current);
 	}
-	free_visited(visited, data->map.height);
+	free_flood(visited, list, data->map.height);
 	return (EXIT_SUCCESS);
 }

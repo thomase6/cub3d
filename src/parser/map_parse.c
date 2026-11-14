@@ -6,13 +6,13 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 13:21:06 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/09 11:11:36 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/14 18:51:12 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	store_grid_and_player(t_game *data, char *line)
+int	store_grid_line(t_game *data, char *line)
 {
 	char	**tmp;
 	int		i;
@@ -29,18 +29,14 @@ int	store_grid_and_player(t_game *data, char *line)
 			i++;
 		}
 	}
-	if (line != NULL)
-	{
-		tmp[i] = ft_strdup(line);
-		if (tmp[i] == NULL)
-			return (free(tmp), EXIT_FAILURE);
-		i++;
-	}
-	tmp[i] = NULL;
+	tmp[i] = ft_strdup(line);
+	if (tmp[i] == NULL)
+		return (free(tmp), EXIT_FAILURE);
+	tmp[i + 1] = NULL;
 	free(data->map.map_grid);
 	data->map.map_grid = tmp;
 	data->map.height += 1;
-	if (line != NULL && (int)ft_strlen(line) > data->map.width)
+	if ((int)ft_strlen(line) > data->map.width)
 		data->map.width = ft_strlen(line);
 	return (EXIT_SUCCESS);
 }
@@ -76,7 +72,8 @@ int	parse_map(t_game *data, char *line)
 				return (print_error(INVAL_MAP_CHAR), EXIT_FAILURE);
 		}
 		data->map.map_started = 1;
-		store_grid_and_player(data, line);
+		if (store_grid_line(data, line) != EXIT_SUCCESS)
+			return (print_error(ALLOC_FAIL), EXIT_FAILURE);
 	}
 	else
 		return (print_error(NOT_MAP_LINE), EXIT_FAILURE);
