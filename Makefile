@@ -20,16 +20,15 @@ SRC			=	main.c	\
 				utils/flood_fill_helper.c	\
 				utils/validate_map.c	\
 				init/init_game.c	\
-				init/minimap.c	\
-				init/minimap1.c	\
-				init/movement_player.c	\
-				init/raycasting.c	\
-				init/raycasting1.c	\
-				init/init_player.c	\
-				init/game_rules.c	\
-				init/update_helper.c	\
-				init/update_player.c	\
-				init/textures.c	\
+				init/minimap.c          \
+				init/minimap1.c		\
+				init/raycasting.c       \
+				init/raycasting1.c 	\
+				init/init_player.c 	\
+				init/game_rules.c       \
+				init/update_helper.c    \
+				init/update_player.c   	\
+				init/textures.c         \
 				parser/parser.c	\
 				parser/texture_parse.c	\
 				parser/color_parse.c	\
