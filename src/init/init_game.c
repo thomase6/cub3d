@@ -64,3 +64,39 @@ int	init_game(t_game *game)
 	mlx_loop(game->mlx);
 	return (EXIT_SUCCESS);
 }
+
+int	key_press(int keycode, t_game *game)
+{
+	if (keycode == KEY_W || keycode == KEY_UP)
+		game->player.move_forward = 1;
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		game->player.move_backward = 1;
+	if (keycode == KEY_A)
+		game->player.move_left = 1;
+	if (keycode == KEY_D)
+		game->player.move_right = 1;
+	if (keycode == KEY_LEFT)
+		game->player.turn_left = 1;
+	if (keycode == KEY_RIGHT)
+		game->player.turn_right = 1;
+	if (keycode == ESC)
+		close_game(game);
+	return (0);
+}
+
+int	key_release(int keycode, t_game *game)
+{
+	if (keycode == KEY_W || keycode == KEY_UP)
+		game->player.move_forward = 0;
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		game->player.move_backward = 0;
+	if (keycode == KEY_A)
+		game->player.move_left = 0;
+	if (keycode == KEY_D)
+		game->player.move_right = 0;
+	if (keycode == KEY_LEFT)
+		game->player.turn_left = 0;
+	if (keycode == KEY_RIGHT)
+		game->player.turn_right = 0;
+	return (0);
+}
