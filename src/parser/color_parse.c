@@ -6,31 +6,39 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/12 17:52:36 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/14 18:17:43 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	validate_color(char **s, int i)
+{
+	int	j;
+
+	if ((s[i][0] == '\0') || (ft_strlen(s[i]) > 3))
+		return (EXIT_FAILURE);
+	j = 0;
+	while (s[i][j] != '\0')
+	{
+		if (ft_isdigit(s[i][j]) == 0)
+			return (EXIT_FAILURE);
+		j++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	validate_and_store_colors(char **s, int *target)
 {
 	int	i;
-	int	j;
 	int	tmp;
 	int	rgb[3];
 
 	i = 0;
 	while (s[i] != NULL)
 	{
-		if ((s[i][0] == '\0') || (ft_strlen(s[i]) > 3))
+		if (validate_color(s, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		j = 0;
-		while (s[i][j] != '\0')
-		{
-			if (ft_isdigit(s[i][j]) == 0)
-				return (EXIT_FAILURE);
-			j++;
-		}
 		tmp = ft_atoi(s[i]);
 		if (tmp >= 0 && tmp <= 255)
 			rgb[i] = tmp;

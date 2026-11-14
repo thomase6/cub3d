@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/12 14:51:39 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/14 18:50:56 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 //		Error Messages		//
 # define ARG_COUNT "Error\nWrong number of arguments\n"
 # define INVALID_ARG "Error\nInvalid argument\n"
+# define ALLOC_FAIL "Error\nFailed to malloc\n"
 # define OPEN_FAILED "Error\nFailed to open file\n"
 # define TEXT_DUP "Error\nTexture duplicate found\n"
 # define COLOR_DUP "Error\nColor duplicate found\n"
@@ -34,7 +35,7 @@
 # define INV_COLOR "Error\nInvalid color\n"
 # define SPLIT_FAIL "Error\nft_split failed\n"
 # define EMPTY_COLOR "Error\nColor missing\n"
-# define INV_COLOR_AMOUNT "Error\n The color must be in the format rrr,ggg,bbb.\n"
+# define INV_COLOR_AMOUNT "Error\nThe color format is rrr,ggg,bbb.\n"
 # define EMPTY_LINE_IN_MAP "Error\nEmpty line detected in the map.\n"
 # define INVAL_MAP_CHAR "Error\nInvalid map character found in a map line.\n"
 # define NOT_MAP_LINE "Error\nFound an invalid line in the map grid.\n"
@@ -203,13 +204,17 @@ typedef struct s_minimap
 	int	tile_y;
 }	t_minimap;
 
-//		Parsing Functions		//
+//		Parser.c		//
 int		parser(t_game *data, int ac, char **av);
 int		read_file(t_game *data, char **av);
 int		validate_arg(char **av);
 int		process_line(t_game *data, char *line);
-int		validate_all(t_game *data);
+
+//		Validate_map.c			//
 int		validate_map(t_game *data);
+int		fix_map(t_game *data);
+int		validate_all(t_game *data);
+int		look_for_player(t_game *data, int y);
 
 //		texture_parse.c	//
 int		parse_textures(t_game *data, char *line);
@@ -220,21 +225,30 @@ int		validate_textures(char *arg);
 int		parse_colors(t_game *data, char *line);
 int		color_extraction(int *target, bool *flag, char *line);
 int		validate_and_store_colors(char **s, int *target);
+int		validate_color(char **s, int i);
 
 //		map_parse.c		//
 int		parse_map(t_game *data, char *line);
 int		is_mapchar(char c);
-int		store_grid_and_player(t_game *data, char *line);
+int		store_grid_line(t_game *data, char *line);
 
 //		error_handling.c		//
 void	print_error(char *msg);
 void	free_arr(char **array);
 void	free_visited(int **visited, int height);
+void	free_flood(int **visited, t_point *list, int height);
 
-//		floodfill.c		//
+//		flood_fill.c		//
 int		ft_flood_fill(t_game *data);
 int		**create_visited(t_game *data);
-int		fix_map(t_game *data);
+void	push_neighbors(int **visited, t_point *list, int *top, t_point current);
+int		check_cell(t_game *data, t_point current);
+
+//		flood_fill_helper.c		//
+void	push_y(int **visited, t_point *list, int *top, t_point current);
+void	push_x(int **visited, t_point *list, int *top, t_point current);
+void	init_list_and_visited(int **visited, t_point *list,
+			int *top, t_game *data);
 
 //		Initialization          //
 int		init_game(t_game *game);
