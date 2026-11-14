@@ -20,7 +20,6 @@ SRC			=	main.c			\
 				init/init_game.c	\
 				init/minimap.c          \
 				init/minimap1.c		\
-				init/movement_player.c  \
 				init/raycasting.c       \
 				init/raycasting1.c 	\
 				init/init_player.c 	\
