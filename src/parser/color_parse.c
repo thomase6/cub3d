@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/15 11:50:20 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 14:00:50 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ int	comma_check(char *line, int i)
 int	validate_color(char **s, int i)
 {
 	int	j;
+	int	start;
 
-	if ((s[i][0] == '\0') || (ft_strlen(s[i]) > 3))
-		return (EXIT_FAILURE);
 	j = 0;
-	while (s[i][j] != '\0')
-	{
-		if (ft_isdigit(s[i][j]) == 0)
-			return (EXIT_FAILURE);
+	while (s[i][j] == ' ')
 		j++;
-	}
+	start = j;
+	while (ft_isdigit(s[i][j]))
+		j++;
+	if ((j - start == 0) || (j - start > 3))
+		return (EXIT_FAILURE);
+	while (s[i][j] == ' ')
+		j++;
+	if (s[i][j] != '\0')
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -80,7 +84,7 @@ int	color_extraction(int *target, bool *flag, char *line)
 	if (line[i] == '\0')
 		return (print_error(EMPTY_COLOR), EXIT_FAILURE);
 	if (comma_check(line, i) != EXIT_SUCCESS)
-		return (print_error(INV_COLOR), EXIT_FAILURE);
+		return (print_error(INV_COLOR_AMOUNT), EXIT_FAILURE);
 	s = ft_split(line + i, ',');
 	if (s == NULL)
 		return (print_error(SPLIT_FAIL), EXIT_FAILURE);

@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/11/14 17:00:04 by texenber         ###   ########.fr        #
+#    Updated: 2026/11/15 14:07:37 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS		=	$(addprefix $(PRE), $(SRC))
 PRE			=	./src/
 HEAD		=	./inc/ ./inc/libft/src/ ./minilibx-linux/
 CC			=	cc
-WARN		=	-Wall -Werror -Wextra
+WARN		=	-Wall -Werror -Wextra -MMD -MP
 DFLAGS		=	-g
 LIBS		=	-Lminilibx-linux -lmlx -lXext -lm -lX11
 ifeq ($(NOWARN), 1)
@@ -48,6 +48,7 @@ LIBFT_DIR 	= 	inc/libft
 LIBFT 		= 	cd $(LIBFT_DIR)
 ODIR		= 	obj/
 OBJS		= 	$(SRCS:$(PRE)%.c=$(ODIR)%.o)
+DEPS		=	$(OBJS:.o=.d)
 
 #utensils
 
@@ -62,6 +63,8 @@ all:		$(NAME)
 $(ODIR)%.o:	$(PRE)%.c
 			@$(DIR_DUP)
 			@$(CC) $(CFLAGS) -c $(addprefix -I, $(HEAD)) $< -o $@
+
+-include $(DEPS)
 
 $(NAME):	$(OBJS)
 			@($(LIBFT) && $(MAKE) all)

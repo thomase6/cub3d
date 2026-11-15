@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 08:50:33 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/12 12:08:40 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 13:22:51 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ int	parse_textures(t_game *data, char *line)
 		return (print_error(LINE_AFTER_MAP), EXIT_FAILURE);
 	if (ft_strncmp(line, "NO", 2) == 0)
 	{
-		if (texture_extraction(&data->map.north, line) != EXIT_SUCCESS)
+		if (texture_extraction(&data->map.south, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	if (ft_strncmp(line, "SO", 2) == 0)
 	{
-		if (texture_extraction(&data->map.south, line) != EXIT_SUCCESS)
+		if (texture_extraction(&data->map.north, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	if (ft_strncmp(line, "EA", 2) == 0)
 	{
-		if (texture_extraction(&data->map.east, line) != EXIT_SUCCESS)
+		if (texture_extraction(&data->map.west, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	if (ft_strncmp(line, "WE", 2) == 0)
 	{
-		if (texture_extraction(&data->map.west, line) != EXIT_SUCCESS)
+		if (texture_extraction(&data->map.east, line) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

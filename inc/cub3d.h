@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/15 11:50:30 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 14:11:36 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 # define CUB3D_H
 
 # include "libft.h"
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <mlx.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
-# include <stdlib.h>
 
 //		Error Messages		//
 # define ARG_COUNT "Error\nWrong number of arguments\n"
@@ -67,7 +65,6 @@
 # define MINI_TILE	8
 
 # define TILE_SIZE      32
-# define PLAYER_SIZE    5
 # define SPEED		0.01
 # define ROT_SPEED	0.01
 # define RADIUS		0.1
@@ -227,7 +224,6 @@ int		parse_colors(t_game *data, char *line);
 int		color_extraction(int *target, bool *flag, char *line);
 int		validate_and_store_colors(char **s, int *target);
 int		validate_color(char **s, int i);
-int		comma_check(char *line, int i);
 
 //		map_parse.c		//
 int		parse_map(t_game *data, char *line);
