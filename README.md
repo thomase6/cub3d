@@ -43,8 +43,8 @@ The project requires:
 Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd cub3d
+git clone <repository-url> <name>
+cd <name>
 ```
 
 ### Compilation
@@ -66,6 +66,7 @@ This generates the `cub3D` executable.
 | `make clean` | Removes object files. |
 | `make fclean` | Removes object files and the executable. |
 | `make re` | Performs a complete recompilation. |
+| `make debug` | Performs a complete recompilation with -g flag. |
 
 ### Execution
 
@@ -181,8 +182,6 @@ Their usage included:
 - **Debugging Assistance:** Helping analyze compiler errors, runtime issues, and potential implementation problems.
 - **Concept Clarification:** Explaining mathematical concepts such as ray direction, wall distances, camera projection, and texture mapping.
 - **README Preparation:** Assisting with the organization, wording, and formatting of this documentation.
-
-AI-generated suggestions were used as guidance during development. The implementation, integration, testing, and final decisions regarding the project were handled by the authors.
 
 ---
 
