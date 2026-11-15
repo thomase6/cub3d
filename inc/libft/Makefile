@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/16 14:29:16 by texenber          #+#    #+#              #
-#    Updated: 2026/06/22 12:21:22 by texenber         ###   ########.fr        #
+#    Updated: 2026/11/15 15:59:03 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,14 @@ SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -MMD -MP
 
 #utensils
 RM := rm -f
 LM := make -C
 MAKEFLAGS += --no-print-directory
 DIR_DUP = mkdir -p $(@D)
+DEPS =	$(OBJS:.o=.d)
 
 #recipe
 all: $(NAME)
@@ -76,6 +77,8 @@ $(NAME): $(OBJS)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+-include $(DEPS)
 
 clean:
 	$(RM) $(OBJS)
