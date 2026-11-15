@@ -6,7 +6,7 @@
 #    By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/16 10:05:37 by texenber          #+#    #+#              #
-#    Updated: 2026/11/15 14:07:37 by texenber         ###   ########.fr        #
+#    Updated: 2026/11/15 15:55:08 by texenber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,9 @@ $(NAME):	$(OBJS)
 			@($(LIBFT) && $(MAKE) all)
 			@$(CC) $(CFLAGS) $(addprefix -I, $(HEAD)) $(OBJS) $(LIBS) -o $(NAME) $(LIBFT_DIR)/libft.a
 
+$(LIBFT_RELEASE): 	force
+					$(MAKE) -C $(LIBFT_DIR)	
+
 clean:
 			@($(LIBFT) && $(MAKE) clean)
 			@$(RM) $(OBJS)
@@ -81,7 +84,9 @@ fclean:		clean
 
 debug:		
 			@$(MAKE) CFLAGS="$(CFLAGS) $(DFLAGS)" re
+				
+force:
 
 re:			fclean all clean
 
-.PHONY:		all clean fclean debug re
+.PHONY:		all clean fclean debug re force
