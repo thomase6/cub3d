@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 12:44:41 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/14 17:54:49 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 11:41:18 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,18 @@ void	free_flood(int **visited, t_point *list, int height)
 void	print_error(char *msg)
 {
 	ft_putstr_fd(msg, 1);
+}
+
+void	free_game(t_game *data)
+{
+	if (data->map.north != NULL)
+		free(data->map.north);
+	if (data->map.south != NULL)
+		free(data->map.south);
+	if (data->map.east != NULL)
+		free(data->map.east);
+	if (data->map.west != NULL)
+		free(data->map.west);
+	if (data->map.map_grid != NULL)
+		free_arr(data->map.map_grid);
 }
