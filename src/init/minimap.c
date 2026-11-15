@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 13:19:59 by stbagdah          #+#    #+#             */
-/*   Updated: 2026/11/10 11:06:12 by stbagdah         ###   ########.fr       */
+/*   Updated: 2026/11/15 10:49:36 by stbagdah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,19 @@ static void	init_mini_ray(t_game *game, t_mini_ray *data, int i)
 
 static void	draw_single_ray(t_game *game, t_mini_ray *data)
 {
+	int	screen_x;
+	int	screen_y;
+
 	while (!is_wall(game, data->ray_x, data->ray_y))
 	{
 		data->ray_x += data->ray_dir_x * data->step;
 		data->ray_y += data->ray_dir_y * data->step;
-		put_pixel(game, MINI_CENTER_X + (data->ray_x - game->player.x)
-			* MINI_TILE, MINI_CENTER_Y + (data->ray_y - game->player.y)
-			* MINI_TILE, 0x00FFFF00);
+		screen_x = MINI_CENTER_X + (data->ray_x - game->player.x) * MINI_TILE;
+		screen_y = MINI_CENTER_Y + (data->ray_y - game->player.y) * MINI_TILE;
+		if (screen_x < 0 || screen_x >= MINI_CENTER_X * 2 || screen_y < 0
+			|| screen_y >= MINI_CENTER_Y * 2)
+			break ;
+		put_pixel(game, screen_x, screen_y, 0x0FFFF00);
 	}
 }
 
