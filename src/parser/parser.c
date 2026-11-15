@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 09:53:55 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/14 19:03:37 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 10:49:03 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	read_file(t_game *data, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error(OPEN_FAILED), EXIT_FAILURE);
+	if (read(fd, NULL, 0) == -1)
+		return (print_error(FAIL_READ), close(fd), EXIT_FAILURE);
 	line = get_next_line(fd);
 	while (line)
 	{

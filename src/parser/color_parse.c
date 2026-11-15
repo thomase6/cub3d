@@ -6,11 +6,27 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 09:27:11 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/14 18:17:43 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 11:50:20 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	comma_check(char *line, int i)
+{
+	int	count;
+
+	count = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	if (count > 2)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
 
 int	validate_color(char **s, int i)
 {
@@ -63,6 +79,8 @@ int	color_extraction(int *target, bool *flag, char *line)
 		i++;
 	if (line[i] == '\0')
 		return (print_error(EMPTY_COLOR), EXIT_FAILURE);
+	if (comma_check(line, i) != EXIT_SUCCESS)
+		return (print_error(INV_COLOR), EXIT_FAILURE);
 	s = ft_split(line + i, ',');
 	if (s == NULL)
 		return (print_error(SPLIT_FAIL), EXIT_FAILURE);

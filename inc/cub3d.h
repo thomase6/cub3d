@@ -6,7 +6,7 @@
 /*   By: texenber <texenber@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 10:05:44 by texenber          #+#    #+#             */
-/*   Updated: 2026/11/14 18:50:56 by texenber         ###   ########.fr       */
+/*   Updated: 2026/11/15 11:50:30 by texenber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define INVALID_ARG "Error\nInvalid argument\n"
 # define ALLOC_FAIL "Error\nFailed to malloc\n"
 # define OPEN_FAILED "Error\nFailed to open file\n"
+# define FAIL_READ "Error\nFailed to read file\n"
 # define TEXT_DUP "Error\nTexture duplicate found\n"
 # define COLOR_DUP "Error\nColor duplicate found\n"
 # define STRDUP_FAIL "Error\nft_strdup failed to malloc\n"
@@ -226,6 +227,7 @@ int		parse_colors(t_game *data, char *line);
 int		color_extraction(int *target, bool *flag, char *line);
 int		validate_and_store_colors(char **s, int *target);
 int		validate_color(char **s, int i);
+int		comma_check(char *line, int i);
 
 //		map_parse.c		//
 int		parse_map(t_game *data, char *line);
